@@ -1,0 +1,5 @@
+body {
+    background-color: #8bc6ec;
+    background-image: linear-gradient(to left, #8bc6ec 0%, #9599e2 100%);
+    box-sizing: border-box;
+}    
