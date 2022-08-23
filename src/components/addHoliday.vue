@@ -1,6 +1,5 @@
 <template>
-
-  <form class="border border-white rounded p-2">
+  <form class="border border-white rounded p-3">
     <div class="form-group row">
       <label for="input1" class="col-sm-7 col-lg-3 col-form-label"
         >start date:</label

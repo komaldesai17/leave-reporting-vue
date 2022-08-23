@@ -20,7 +20,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { fetchHolidays } from "@/services/holiday";
 import AddHoliday from "./addHoliday";
-import RemoveHoliday from "./removeHoliday.vue";
+import RemoveHoliday from "./removeHoliday";
 
 export default {
   name: "HolidayView",

@@ -2,8 +2,8 @@ import Router from 'vue-router';
 import AppLogin from '@/components/login'
 import HolidayView from '@/components/holidayView'
 import LeaveDashboard from '@/components/dashboard'
-import ApplyLeave from '@/components/applyLeave'
-
+//import ApplyLeave from '@/components/applyLeave'
+import LeaveView from '@/components/leaveView'
 
 const router = new Router({
     mode: 'history',
@@ -11,24 +11,36 @@ const router = new Router({
         {
             name: 'Login',
             path: '/',
-            component:AppLogin
+            component: AppLogin
         },
         {
             name: 'Holiday',
             path: '/holiday',
-            component:HolidayView
+            component: HolidayView
         },
         {
             name: 'Dashboard',
             path: '/dashboard',
-            component:LeaveDashboard
+            component: LeaveDashboard
         },
         {
-            name: 'apply',
-            path: '/apply',
-            component:ApplyLeave
+            name: 'Leave',
+            path: '/leave',
+            component: LeaveView,
+             /*{ children: [
+
+                {
+                    name: 'apply',
+                    path: 'apply',
+                    component: ApplyLeave
+                },
+              
+                    name: 'status',
+                    path: 'status',
+                    component:
+                }
+            ]*/
         }
-        
     ]
 })
 

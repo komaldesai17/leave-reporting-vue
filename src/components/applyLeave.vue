@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h3 class="mt-2">Apply for a leave</h3>
-    <hr />
     <div class="datewidth border border-white rounded m-sm-4 m-lg-3">
       <b-form class="m-5">
         <b-form-group
@@ -13,9 +11,12 @@
           <b-form-datepicker
             size="lg"
             id="startdate"
-            class=""
+            :date-format-options="{
+              year: 'numeric',
+              month: 'numeric',
+              day: 'numeric',
+            }"
             placeholder="YYYY-MM-DD"
-
           ></b-form-datepicker>
         </b-form-group>
         <b-form-group
@@ -27,7 +28,11 @@
           <b-form-datepicker
             size="lg"
             id="enddate"
-            class=""
+            :date-format-options="{
+              year: 'numeric',
+              month: 'numeric',
+              day: 'numeric',
+            }"
             placeholder="YYYY-MM-DD"
           ></b-form-datepicker>
         </b-form-group>
