@@ -27,7 +27,6 @@ data(){
 },
 methods:{
   async RemoveHol(){
-    console.log(this.description)
     const response = await removeHoliday(this.description);
     console.log(response)
   }
