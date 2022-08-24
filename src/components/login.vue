@@ -6,12 +6,13 @@
       <div class="row g-3 align-items-center">
         <div class="col-auto set-container">
           <i class="fa-solid fa-user"></i>
-          <label for="user_id" class="col-form-label mx-2">User ID</label>
+          <label for="user_id" class="col-form-label mx-2">Email ID</label>
         </div>
         <div class="col-auto set-container">
           <input
             type="text"
             id="user_id"
+            v-model="form.email"
             class="form-control"
             aria-describedby="user_id"
           />
@@ -31,13 +32,14 @@
         <div class="col-auto set-container">
           <input
             type="password"
+            v-model="form.password"
             id="password"
             class="form-control"
             aria-describedby="passwordHelp"
           />
         </div>
         <div class="col-auto">
-          <button type="submit" class="btn btn-primary">Login</button>
+          <button type="submit" class="btn btn-primary" @click="login">Login</button>
         </div>
       </div>
     </form>
@@ -45,8 +47,26 @@
 </template>
 
 <script>
+import {login} from "@/services/users"
+
 export default {
   name: "AppLogin",
+  data(){
+    return{
+      form :{
+        email:"",
+        password:""
+      }
+    }
+  },
+  methods:{
+    async login(){    
+      const response= await login(this.form)
+      //this.$cookies.set('user',`${response.cookie}`)
+      console.log(response)
+
+    }
+  }
 };
 </script>
 

@@ -53,6 +53,9 @@ export default {
   },
   methods:{
     async AddHoliday(){
+      this.$cookies.set()
+      console.log(this.$cookies.get('user'))
+
       const response= await AddHoliday(this.form)
       console.log(response)
     }

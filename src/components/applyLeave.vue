@@ -11,11 +11,13 @@
           <b-form-datepicker
             size="lg"
             id="startdate"
+            v-model="form.startDate"
             :date-format-options="{
               year: 'numeric',
               month: 'numeric',
               day: 'numeric',
             }"
+            :date-disabled-fn="dateDisabled"
             placeholder="YYYY-MM-DD"
           ></b-form-datepicker>
         </b-form-group>
@@ -28,11 +30,13 @@
           <b-form-datepicker
             size="lg"
             id="enddate"
+            v-model="form.endDate"
             :date-format-options="{
               year: 'numeric',
               month: 'numeric',
               day: 'numeric',
             }"
+            :date-disabled-fn="dateDisabled"
             placeholder="YYYY-MM-DD"
           ></b-form-datepicker>
         </b-form-group>
@@ -41,6 +45,7 @@
           <b-form-textarea
             id="textarea-large"
             size="lg"
+            v-model="form.reason"
             placeholder="describe your reason shortly..."
           ></b-form-textarea>
         </b-form-group>
@@ -53,6 +58,7 @@
           v-slot="{ ariaDescribedby }"
         >
           <b-form-radio-group
+            v-model="form.type"
             class="pt-2"
             size="lg"
             :options="['Annual', 'Sick']"
@@ -61,7 +67,11 @@
             buttons
           ></b-form-radio-group>
         </b-form-group>
-        <b-button size="lg" variant="primary" class="mt-sm-4 mt-lg-1 m-lg-3"
+        <b-button
+          size="lg"
+          variant="primary"
+          class="mt-sm-4 mt-lg-1 m-lg-3"
+          @click="AddLeave"
           >Apply</b-button
         >
       </b-form>
@@ -70,8 +80,34 @@
 </template>
 
 <script>
+import {addLeave} from "../services/leave"
+
 export default {
   name: "ApplyLeave",
+  data() {
+    return {
+      form: {
+        startDate: "",
+        endDate: "",
+        reason: "",
+        type: "",
+      },
+    };
+  },
+  methods: {
+    async AddLeave() {
+      const response = await addLeave(this.form);
+      console.log(response);
+    },
+    dateDisabled(ymd, date) {
+      // Disable weekends (Sunday = `0`, Saturday = `6`) and
+      // disable days that fall on the 13th of the month
+      const weekday = date.getDay();
+      const day = date.getDate();
+      // Return `true` if the date should be disabled
+      return weekday === 0 || weekday === 6 || day === 13;
+    },
+  },
 };
 </script>
 
