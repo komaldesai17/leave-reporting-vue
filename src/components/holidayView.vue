@@ -96,9 +96,10 @@ export default {
   }
 
   .calcontainer {
-    width: 95%;
+    width: 97%;
     height: 0%;
-    margin-left: 1%;
+    margin-left:1.5%;
+    margin-right:1.5%;
   }
 }
 </style>
