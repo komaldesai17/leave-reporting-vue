@@ -1,15 +1,40 @@
 <template>
-<div>
-<div class="card mt-1" v-for="leave in leaves" :key="leave._id">
-  <div class="card-header">
-    from :{{leave.startDate}} to:{{leave.endDate}}
+  <div>
+    <div
+      class="card border-light mb-3 bg-transparent m-3"
+      style="max-width: 60rem"
+      v-for="leave in leaves"
+      :key="leave._id"
+    >
+      <div class="card-body d-inline-flex justify-content-between">
+        <div>
+          <div class="mb-2">from : {{ leave.startDate }}</div>
+          <div class="mb-2">to :{{ leave.endDate }}</div>
+
+          <button class="btn btn-danger mb-2" v-if="leave.status === 'pending'">
+            <i class="fa-solid fa-trash"></i>
+            cancel
+          </button>
+        </div>
+        <div class="d-flex justify-content-between">
+          <span class="m-2">current status:</span>
+          <div
+            class="alert bg-dark text-white h-50"
+            v-if="leave.status === 'pending'"
+          >
+            <i class="fa-solid fa-clock-rotate-left"></i> {{ leave.status }}
+          </div>
+          <div class="alert bg-success" v-if="leave.status === 'approved'">
+            <i class="fa-solid fa-thumbs-up"></i> {{ leave.status }}
+          </div>
+          <div class="alert alert-danger" v-if="leave.status === 'rejected'">
+            <i class="fa-solid fa-thumbs-down"></i> {{ leave.status }}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="card-body">
-    <p class="card-text">Reason:{{leave.reason}}</p>
-    <a href="#" class="btn btn-dark">{{leave.status}}</a>
-  </div>
-  </div>
-</div></template>
+</template>
 
 <script>
 import { getLeaves } from "../services/leave";

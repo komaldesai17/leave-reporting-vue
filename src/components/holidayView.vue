@@ -1,12 +1,16 @@
 <template>
   <div class="topcontainer">
-    <div class="addholiday" v-if="role==='admin'">
-      <h5 class="mt-3">Add Holiday</h5>
-      <hr />
-      <AddHoliday />
-      <h5 class="mt-5">Remove Holiday</h5>
-      <hr />
-      <RemoveHoliday />
+    <div class="admincontainer">
+      <div class="addholiday" v-if="role === 'admin'">
+        <h5 class="mt-3">Add Holiday</h5>
+        <hr />
+        <AddHoliday />
+      </div>
+      <div class="removeholiday" v-if="role === 'admin'">
+        <h5 class="mt-3">Remove Holiday</h5>
+        <hr />
+        <RemoveHoliday />
+      </div>
     </div>
     <div class="calcontainer">
       <FullCalendar :options="calendarOptions" />
@@ -61,12 +65,14 @@ export default {
 <style scoped>
 .topcontainer {
   display: flex;
-  margin-top: 1%;
-  margin-left: 3%;
+  margin: 1%;
 }
 
 .addholiday {
-  width: 35%;
+  width: 100%;
+}
+.removeholiday {
+  width: 100%;
 }
 .calcontainer {
   width: 60%;
@@ -75,9 +81,24 @@ export default {
 }
 
 @media (min-width: 600px) and (max-width: 1000px) {
+  .topcontainer {
+    display: block;
+  }
+  .admincontainer {
+    display: inline-flex;
+    justify-content: space-between;
+  }
+  .addholiday {
+    width: 50%;
+  }
+  .removeholiday {
+    width: 45%;
+  }
+
   .calcontainer {
-    width: 100%;
+    width: 95%;
     height: 0%;
+    margin-left: 1%;
   }
 }
 </style>
