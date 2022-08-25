@@ -1,13 +1,12 @@
 <template>
 <div>
-<div class="card">
+<div class="card mt-1" v-for="leave in leaves" :key="leave._id">
   <div class="card-header">
-    Featured
+    from :{{leave.startDate}} to:{{leave.endDate}}
   </div>
   <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <p class="card-text">Reason:{{leave.reason}}</p>
+    <a href="#" class="btn btn-dark">{{leave.status}}</a>
   </div>
   </div>
 </div></template>
@@ -26,7 +25,7 @@ export default {
     async getAllLeaves() {
       const id = this.$store.state.auth.user;
       const response = await getLeaves(id);
-      this.leaves = response.data;
+      this.leaves = response.data.data;
       console.log(this.leaves);
       return response;
     },
