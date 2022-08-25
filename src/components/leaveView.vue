@@ -1,5 +1,5 @@
 <template>
-  <div  class="addholiday">
+  <div  class="addleave">
     <h3 >Apply for a leave</h3>
     <hr />
     <ApplyLeave />
@@ -19,7 +19,7 @@ export default {
 
 
 <style scoped>
-.addholiday {
-    margin:1%
+.addleave {
+    margin:2%
 }
 </style>

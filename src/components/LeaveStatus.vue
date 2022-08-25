@@ -1,7 +1,14 @@
 <template>
-  <div>
+  <div class="m-2">
     <div
-      class="card border-light mb-3 bg-transparent m-3"
+      class="card border-light alert alert-danger m-3 p-3"
+      style="max-width: 60rem"
+      v-if="leaves.length === 0"
+    >
+      No Leaves found currently
+    </div>
+    <div
+      class="card border-light mb-3 bg-transparent"
       style="max-width: 60rem"
       v-for="leave in leaves"
       :key="leave._id"
