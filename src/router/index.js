@@ -2,6 +2,7 @@ import Router from 'vue-router';
 import AppLogin from '@/components/login'
 import HolidayView from '@/components/holidayView'
 import LeaveDashboard from '@/components/dashboard'
+import LeaveStatus from '@/components/LeaveStatus'
 //import ApplyLeave from '@/components/applyLeave'
 import LeaveView from '@/components/leaveView'
 
@@ -22,6 +23,11 @@ const router = new Router({
             name: 'Dashboard',
             path: '/dashboard',
             component: LeaveDashboard
+        },
+        {
+            name: 'status',
+            path: '/status',
+            component: LeaveStatus
         },
         {
             name: 'Leave',

@@ -1,21 +1,19 @@
 import axios from 'axios';
 import config from '@/config';
-//import Vue from 'vue';
-//import VueAxios from 'vue-axios'
-/*
-axios.defaults.withCredentials = true;
-Vue.use(VueAxios, axios);
-*/
-const addLeave = async (session) => {
-    const response = axios.post(`${config.baseUrl}/leave`, session, { withCredentials: true }/*{
-        headers: {
-            'Access-Control-Allow-Credentials': 'true'
 
-        }
-    }*/)
+const addLeave = async (session) => {
+    const response = axios.post(`${config.baseUrl}/leave`, session, { withCredentials: true }
+      )
     return response
+}
+
+const getLeaves = async (id) => {
+    const response = axios.get(`${config.baseUrl}/leave/${id}`)
+    return response
+
 }
 
 export {
     addLeave,
+    getLeaves
 }
