@@ -98,8 +98,8 @@ export default {
 
   methods: {
     async AddLeave() {
-      this.form.user = this.$store.state.auth.user;
-      const response = await addLeave(this.form);
+      const id = this.$store.state.auth.user;
+      const response = await addLeave(id, this.form);
       console.log(response);
     },
     dateDisabled(ymd, date) {

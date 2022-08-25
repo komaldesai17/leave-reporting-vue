@@ -1,9 +1,10 @@
 import axios from 'axios';
 import config from '@/config';
 
-const addLeave = async (session) => {
-    const response = axios.post(`${config.baseUrl}/leave`, session, { withCredentials: true }
-      )
+const addLeave = async (id, session) => {
+    const response = axios.post(`${config.baseUrl}/leave/${id.toString()}`,session
+    
+    )
     return response
 }
 
