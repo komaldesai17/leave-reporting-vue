@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form>
+    <form @submit.prevent="login">
       <h2>Login</h2>
       <hr />
       <div class="row g-3 align-items-center">
@@ -39,7 +39,7 @@
           />
         </div>
         <div class="col-auto">
-          <button type="submit" class="btn btn-primary" @click="login">Login</button>
+          <button type="submit" class="btn btn-primary" name="login">Login</button>
         </div>
       </div>
     </form>
@@ -47,7 +47,8 @@
 </template>
 
 <script>
-import {login} from "@/services/users"
+
+//import {login} from "@/services/users"
 
 export default {
   name: "AppLogin",
@@ -60,12 +61,16 @@ export default {
     }
   },
   methods:{
-    async login(){    
-      const response= await login(this.form)
-      //this.$cookies.set('user',`${response.cookie}`)
-      console.log(response)
+   login(){
+    this.$store.dispatch("login",this.form)
+    .then(()=>this.$router.push({ name: "Dashboard" }))
+    .catch(error =>{
+      console.log(error.message)
+    })
 
-    }
+   }
+
+    
   }
 };
 </script>

@@ -80,13 +80,14 @@
 </template>
 
 <script>
-import {addLeave} from "../services/leave"
+import { addLeave } from "../services/leave";
 
 export default {
   name: "ApplyLeave",
   data() {
     return {
       form: {
+        user: "",
         startDate: "",
         endDate: "",
         reason: "",
@@ -94,8 +95,10 @@ export default {
       },
     };
   },
+
   methods: {
     async AddLeave() {
+      this.form.user = this.$store.state.auth.user;
       const response = await addLeave(this.form);
       console.log(response);
     },
