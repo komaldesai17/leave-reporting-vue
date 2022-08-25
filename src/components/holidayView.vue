@@ -1,17 +1,17 @@
 <template>
-    <div class="topcontainer">
-      <div class="addholiday">
-        <h5 class="mt-3">Add Holiday</h5>
-        <hr />
-        <AddHoliday />
-        <h5 class="mt-5">Remove Holiday</h5>
-        <hr />
-        <RemoveHoliday />
-      </div>
-      <div class="calcontainer">
-        <FullCalendar :options="calendarOptions" />
-      </div>
+  <div class="topcontainer">
+    <div class="addholiday" v-if="role==='admin'">
+      <h5 class="mt-3">Add Holiday</h5>
+      <hr />
+      <AddHoliday />
+      <h5 class="mt-5">Remove Holiday</h5>
+      <hr />
+      <RemoveHoliday />
     </div>
+    <div class="calcontainer">
+      <FullCalendar :options="calendarOptions" />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -35,13 +35,14 @@ export default {
         plugins: [dayGridPlugin, interactionPlugin],
         //initialView: "dayGridMonth",
         events: [],
-        eventDisplay:"block",
+        eventDisplay: "block",
         eventColor: "green",
         displayEventTime: false,
         height: 800,
         aspectRatio: 1.8,
         titleFormat: { month: "short", year: "numeric" },
       },
+      role: this.$store.state.auth.role,
     };
   },
   created() {
