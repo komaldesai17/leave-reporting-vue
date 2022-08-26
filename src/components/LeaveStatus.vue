@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex">
+  <div class="topdiv">
    <div>New </div>
     <div class="m-2">
       <div
@@ -80,6 +80,9 @@ export default {
 </script>
 
 <style scoped>
+.topdiv{
+  display: flex;
+}
 .font-weight-bolder {
   font-weight: 500;
 }
