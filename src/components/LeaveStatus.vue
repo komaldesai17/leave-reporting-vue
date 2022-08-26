@@ -32,52 +32,20 @@
         v-for="leave in leaves"
         :key="leave._id"
       >
-        <div class="card-body d-inline-flex justify-content-between">
-          <div>
-            <div class="mb-2">
-              <span class="font-weight-bolder">From : </span>
-              {{ leave.startDate }}
-            </div>
-            <div class="mb-2">
-              <span class="font-weight-bolder">To : </span>{{ leave.endDate }}
-            </div>
-
-            <button
-              class="btn btn-danger mb-2"
-              v-if="leave.status === 'pending'"
-              type="submit"
-              @click="CancelLeave(leave._id)"
-            >
-              <i class="fa-solid fa-trash"></i>
-              Cancel
-            </button>
-          </div>
-          <div class="d-flex justify-content-between">
-            <span class="m-2 font-weight-bolder">Current Status : </span>
-            <div
-              class="alert bg-dark text-white h-50"
-              v-if="leave.status === 'pending'"
-            >
-              <i class="fa-solid fa-clock-rotate-left"></i> {{ leave.status }}
-            </div>
-            <div class="alert bg-success" v-if="leave.status === 'approved'">
-              <i class="fa-solid fa-thumbs-up"></i> {{ leave.status }}
-            </div>
-            <div class="alert alert-danger" v-if="leave.status === 'rejected'">
-              <i class="fa-solid fa-thumbs-down"></i> {{ leave.status }}
-            </div>
-          </div>
-        </div>
+        <LeaveCard :leave="leave" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { getLeaves, cancelLeave } from "../services/leave";
-
+import { getLeaves } from "../services/leave";
+import LeaveCard from "./LeaveCard.vue";
 export default {
   name: "LeaveStatus",
+  components: {
+    LeaveCard,
+  },
   data() {
     return {
       leaves: [],
@@ -89,13 +57,6 @@ export default {
       const id = this.$store.state.auth.user;
       const response = await getLeaves(id, this.status);
       this.leaves = response.data.data;
-      return response;
-    },
-
-    async CancelLeave(leave) {
-      const response = await cancelLeave(leave);
-      console.log(leave);
-
       return response;
     },
   },
@@ -117,9 +78,5 @@ export default {
 .filtercontainer {
   width: 50%;
   margin-left: 5%;
-}
-
-.font-weight-bolder {
-  font-weight: 500;
 }
 </style>
