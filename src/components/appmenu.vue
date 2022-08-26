@@ -18,7 +18,7 @@
                   >Check status</router-link
                 ></b-dropdown-item
               >
-              <b-dropdown-item>
+              <b-dropdown-item v-if="this.$store.state.auth.role === 'general'">
                 <router-link to="/leave" class="text-decoration-none"
                   >Apply leave</router-link
                 ></b-dropdown-item
@@ -26,9 +26,11 @@
             </b-nav-item-dropdown>
           </b-nav-text>
           <b-nav-text>
-            <b-nav-item class="ml-7 p-1"> <router-link to="/holiday" class="text-decoration-none"
-                  >Holiday</router-link
-                ></b-nav-item>
+            <b-nav-item class="ml-7 p-1">
+              <router-link to="/holiday" class="text-decoration-none"
+                >Holiday</router-link
+              ></b-nav-item
+            >
           </b-nav-text>
           <b-nav-text ml-auto>
             <b-nav-item class="ml-7 p-1" href="#">Log out</b-nav-item>

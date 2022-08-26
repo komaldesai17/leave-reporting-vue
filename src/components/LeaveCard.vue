@@ -9,29 +9,61 @@
         <span class="font-weight-bolder">To : </span>{{ leave.endDate }}
       </div>
 
+      <div class="mb-2">
+        <span class="font-weight-bolder">user : </span>{{ leave.user }}
+      </div>
+
       <button
         class="btn btn-danger mb-2"
-        v-if="leave.status === 'pending'"
+        v-if="
+          leave.status === 'pending' &&
+          this.$store.state.auth.role === 'general'
+        "
         type="submit"
         @click="CancelLeave(leave._id)"
       >
         <i class="fa-solid fa-trash"></i>
         Cancel
       </button>
+
+      <button
+        class="btn btn-outline-success m-2"
+        v-if="
+          leave.status === 'pending' && this.$store.state.auth.role === 'admin'
+        "
+        type="submit"
+      >
+        <i class="fa-solid fa-calendar-check"></i> Approve
+      </button>
+      <button
+        class="btn btn-outline-danger m-2"
+        v-if="
+          leave.status === 'pending' && this.$store.state.auth.role === 'admin'
+        "
+        type="submit"
+        @click="CancelLeave(leave._id)"
+      >
+        <i class="fa-solid fa-calendar-xmark"></i> Reject
+      </button>
     </div>
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between statuscontainer">
       <span class="m-2 font-weight-bolder">Current Status : </span>
       <div
-        class="alert bg-dark text-white h-50"
+        class="alert bg-dark text-white h-25 p-2 w-50 "
         v-if="leave.status === 'pending'"
       >
-        <i class="fa-solid fa-clock-rotate-left"></i> {{ leave.status }}
+        <i class="fa-solid fa-clock-rotate-left ms-4"></i> {{ leave.status }}</div>
+      <div
+        class="alert bg-success h-50 p-2 w-50"
+        v-if="leave.status === 'approved'"
+      >
+        <i class="fa-solid fa-thumbs-up ms-4"></i> {{ leave.status }}
       </div>
-      <div class="alert bg-success" v-if="leave.status === 'approved'">
-        <i class="fa-solid fa-thumbs-up"></i> {{ leave.status }}
-      </div>
-      <div class="alert alert-danger" v-if="leave.status === 'rejected'">
-        <i class="fa-solid fa-thumbs-down"></i> {{ leave.status }}
+      <div
+        class="alert alert-danger h-50 p-2 w-50"
+        v-if="leave.status === 'rejected'"
+      >
+        <i class="fa-solid fa-thumbs-down ms-4"></i> {{ leave.status }}
       </div>
     </div>
   </div>
@@ -65,5 +97,10 @@ export default {
 <style scoped>
 .font-weight-bolder {
   font-weight: 500;
+}
+
+.statuscontainer {
+  width: 35%;
+  justify-content: space-around;
 }
 </style>
