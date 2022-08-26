@@ -21,6 +21,17 @@ const getLeaves = async (id, status) => {
 
 }
 
+const changeStatus = async (id, status) => {
+    const response = axios.patch(`${config.baseUrl}/leave/${id}?`,
+
+        {
+            status
+        }
+    )
+    return response
+
+}
+
 const cancelLeave = async (id) => {
     const response = axios.delete(`${config.baseUrl}/leave/${id.toString()}`
 
@@ -32,5 +43,6 @@ const cancelLeave = async (id) => {
 export {
     addLeave,
     getLeaves,
-    cancelLeave
+    cancelLeave,
+    changeStatus
 }

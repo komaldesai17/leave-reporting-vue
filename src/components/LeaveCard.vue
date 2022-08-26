@@ -32,6 +32,7 @@
           leave.status === 'pending' && this.$store.state.auth.role === 'admin'
         "
         type="submit"
+        @click="ChangeStatus(leave._id, 'approved')"
       >
         <i class="fa-solid fa-calendar-check"></i> Approve
       </button>
@@ -41,36 +42,46 @@
           leave.status === 'pending' && this.$store.state.auth.role === 'admin'
         "
         type="submit"
-        @click="CancelLeave(leave._id)"
+        @click="ChangeStatus(leave._id, 'rejected')"
       >
         <i class="fa-solid fa-calendar-xmark"></i> Reject
       </button>
     </div>
-    <div class="d-flex justify-content-between statuscontainer">
-      <span class="m-2 font-weight-bolder">Current Status : </span>
-      <div
-        class="alert bg-dark text-white h-25 p-2 w-50 "
-        v-if="leave.status === 'pending'"
-      >
-        <i class="fa-solid fa-clock-rotate-left ms-4"></i> {{ leave.status }}</div>
-      <div
-        class="alert bg-success h-50 p-2 w-50"
-        v-if="leave.status === 'approved'"
-      >
-        <i class="fa-solid fa-thumbs-up ms-4"></i> {{ leave.status }}
+
+    <div class="w-50">
+      <div class="d-flex justify-content-end">
+        <span class="m-2 font-weight-bolder">Current Status : </span>
+        <div
+          class="alert bg-dark text-white h-25 p-2 w-50"
+          v-if="leave.status === 'pending'"
+        >
+          <i class="fa-solid fa-clock-rotate-left ms-5"></i> {{ leave.status }}
+        </div>
+        <div
+          class="alert bg-success h-50 p-2 w-50"
+          v-if="leave.status === 'approved'"
+        >
+          <i class="fa-solid fa-thumbs-up ms-5"></i> {{ leave.status }}
+        </div>
+        <div
+          class="alert alert-danger h-50 p-2 w-50"
+          v-if="leave.status === 'rejected'"
+        >
+          <i class="fa-solid fa-thumbs-down ms-5"></i> {{ leave.status }}
+        </div>
       </div>
-      <div
-        class="alert alert-danger h-50 p-2 w-50"
-        v-if="leave.status === 'rejected'"
-      >
-        <i class="fa-solid fa-thumbs-down ms-4"></i> {{ leave.status }}
+      <div class="d-flex justify-content-end">
+        <span class="m-2 font-weight-bolder">Reason : </span>
+        <div class="h-25 p-2 w-50">
+          {{ leave.reason }}
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { cancelLeave } from "../services/leave";
+import { cancelLeave, changeStatus } from "../services/leave";
 
 export default {
   name: "LeaveCard",
@@ -86,8 +97,11 @@ export default {
   methods: {
     async CancelLeave(leave) {
       const response = await cancelLeave(leave);
-      console.log(leave);
-
+      return response;
+    },
+    async ChangeStatus(leave, status) {
+      const response = await changeStatus(leave, status.trim());
+      console.log(leave, status, response.data.data.status);
       return response;
     },
   },

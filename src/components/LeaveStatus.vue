@@ -79,4 +79,16 @@ export default {
   width: 50%;
   margin-left: 5%;
 }
+
+@media (min-width: 600px) and (max-width: 1000px) {
+  .topdiv {
+    display: block;
+    margin-right: 3%;
+  }
+
+  .filtercontainer {
+    width: 100%;
+    margin: 2%;
+  }
+}
 </style>
