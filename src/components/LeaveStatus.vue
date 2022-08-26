@@ -1,41 +1,52 @@
 <template>
-  <div class="m-2">
-    <div
-      class="card border-light alert alert-danger m-3 p-3"
-      style="max-width: 60rem"
-      v-if="leaves.length === 0"
-    >
-      No Leaves found currently
-    </div>
-    <div
-      class="card border-light mb-3 bg-transparent"
-      style="max-width: 60rem"
-      v-for="leave in leaves"
-      :key="leave._id"
-    >
-      <div class="card-body d-inline-flex justify-content-between">
-        <div>
-          <div class="mb-2">from : {{ leave.startDate }}</div>
-          <div class="mb-2">to :{{ leave.endDate }}</div>
+  <div class="d-flex">
+   <div>New </div>
+    <div class="m-2">
+      <div
+        class="card border-light alert alert-danger m-3 p-3"
+        style="max-width: 60rem"
+        v-if="leaves.length === 0"
+      >
+        No Leaves found currently
+      </div>
+      <div
+        class="card border-light mb-3 bg-transparent"
+        style="max-width: 60rem"
+        v-for="leave in leaves"
+        :key="leave._id"
+      >
+        <div class="card-body d-inline-flex justify-content-between">
+          <div>
+            <div class="mb-2">
+              <span class="font-weight-bolder">From : </span>
+              {{ leave.startDate }}
+            </div>
+            <div class="mb-2">
+              <span class="font-weight-bolder">To : </span>{{ leave.endDate }}
+            </div>
 
-          <button class="btn btn-danger mb-2" v-if="leave.status === 'pending'">
-            <i class="fa-solid fa-trash"></i>
-            cancel
-          </button>
-        </div>
-        <div class="d-flex justify-content-between">
-          <span class="m-2">current status:</span>
-          <div
-            class="alert bg-dark text-white h-50"
-            v-if="leave.status === 'pending'"
-          >
-            <i class="fa-solid fa-clock-rotate-left"></i> {{ leave.status }}
+            <button
+              class="btn btn-danger mb-2"
+              v-if="leave.status === 'pending'"
+            >
+              <i class="fa-solid fa-trash"></i>
+              Cancel
+            </button>
           </div>
-          <div class="alert bg-success" v-if="leave.status === 'approved'">
-            <i class="fa-solid fa-thumbs-up"></i> {{ leave.status }}
-          </div>
-          <div class="alert alert-danger" v-if="leave.status === 'rejected'">
-            <i class="fa-solid fa-thumbs-down"></i> {{ leave.status }}
+          <div class="d-flex justify-content-between">
+            <span class="m-2 font-weight-bolder">Current Status : </span>
+            <div
+              class="alert bg-dark text-white h-50"
+              v-if="leave.status === 'pending'"
+            >
+              <i class="fa-solid fa-clock-rotate-left"></i> {{ leave.status }}
+            </div>
+            <div class="alert bg-success" v-if="leave.status === 'approved'">
+              <i class="fa-solid fa-thumbs-up"></i> {{ leave.status }}
+            </div>
+            <div class="alert alert-danger" v-if="leave.status === 'rejected'">
+              <i class="fa-solid fa-thumbs-down"></i> {{ leave.status }}
+            </div>
           </div>
         </div>
       </div>
@@ -68,5 +79,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.font-weight-bolder {
+  font-weight: 500;
+}
 </style>
