@@ -1,6 +1,17 @@
 <template>
   <div class="topdiv">
-   <div>New </div>
+    <div class="m-3">
+      <div class="filtercontainer">
+        <h4>Filter by status</h4>
+        <hr />
+        <b-dropdown id="dropdown-1" text="Select status" class="m-md-2">
+          <b-dropdown-item active>All</b-dropdown-item>
+          <b-dropdown-item>pending</b-dropdown-item>
+          <b-dropdown-item>approved</b-dropdown-item>
+          <b-dropdown-item>rejected</b-dropdown-item>
+        </b-dropdown>
+      </div>
+    </div>
     <div class="m-2">
       <div
         class="card border-light alert alert-danger m-3 p-3"
@@ -80,9 +91,19 @@ export default {
 </script>
 
 <style scoped>
-.topdiv{
+.topdiv {
   display: flex;
+  justify-content: space-between;
 }
+.topdiv > div {
+  width: 100%;
+}
+
+.filtercontainer {
+  width: 50%;
+  margin-left:5%
+}
+
 .font-weight-bolder {
   font-weight: 500;
 }
