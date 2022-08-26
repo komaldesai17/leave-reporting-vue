@@ -40,9 +40,20 @@ const cancelLeave = async (id) => {
 
 }
 
+const getallLeaves = async (status) => {
+    const response = axios.get(`${config.baseUrl}/leave/?`,{
+        params: {
+            find: status
+        }
+    })
+    return response
+
+}
+
 export {
     addLeave,
     getLeaves,
     cancelLeave,
-    changeStatus
+    changeStatus,
+    getallLeaves
 }

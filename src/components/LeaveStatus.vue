@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { getLeaves } from "../services/leave";
+import { getLeaves, getallLeaves } from "../services/leave";
 import LeaveCard from "./LeaveCard.vue";
 export default {
   name: "LeaveStatus",
@@ -54,10 +54,16 @@ export default {
   },
   methods: {
     async getAllLeaves() {
-      const id = this.$store.state.auth.user;
-      const response = await getLeaves(id, this.status);
-      this.leaves = response.data.data;
-      return response;
+      if (this.$store.state.auth.role === "general") {
+        const id = this.$store.state.auth.user;
+        const response = await getLeaves(id, this.status);
+        this.leaves = response.data.data;
+        return response;
+      } else if (this.$store.state.auth.role === "admin") {
+        const response = await getallLeaves(this.status);
+        this.leaves = response.data.data;
+        return response;
+      }
     },
   },
   created() {
@@ -87,7 +93,7 @@ export default {
   }
 
   .filtercontainer {
-    width: 100%;
+    width: 95%;
     margin: 2%;
   }
 }
