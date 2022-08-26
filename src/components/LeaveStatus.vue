@@ -44,7 +44,9 @@
 
             <button
               class="btn btn-danger mb-2"
-              v-if="leave.status === 'pending'" type="submit"
+              v-if="leave.status === 'pending'"
+              type="submit"
+              @click="CancelLeave(leave._id)"
             >
               <i class="fa-solid fa-trash"></i>
               Cancel
@@ -72,7 +74,7 @@
 </template>
 
 <script>
-import { getLeaves } from "../services/leave";
+import { getLeaves, cancelLeave } from "../services/leave";
 
 export default {
   name: "LeaveStatus",
@@ -87,7 +89,13 @@ export default {
       const id = this.$store.state.auth.user;
       const response = await getLeaves(id, this.status);
       this.leaves = response.data.data;
-      console.log(this.leaves);
+      return response;
+    },
+
+    async CancelLeave(leave) {
+      const response = await cancelLeave(leave);
+      console.log(leave);
+
       return response;
     },
   },
