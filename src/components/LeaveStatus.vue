@@ -1,16 +1,22 @@
 <template>
   <div class="topdiv">
     <div class="m-3">
-      <div class="filtercontainer">
+      <form class="filtercontainer" @submit.prevent="getAllLeaves">
         <h4>Filter by status</h4>
         <hr />
-        <b-dropdown id="dropdown-1" text="Select status" class="m-md-2">
-          <b-dropdown-item active>All</b-dropdown-item>
-          <b-dropdown-item>pending</b-dropdown-item>
-          <b-dropdown-item>approved</b-dropdown-item>
-          <b-dropdown-item>rejected</b-dropdown-item>
-        </b-dropdown>
-      </div>
+        <b-form-select
+          v-model="status"
+          class="btn btn-group btn-lg dropdown-toggle bg-body w-50"
+        >
+          <b-form-select-option value="" active>All</b-form-select-option>
+          <b-form-select-option value="pending">pending</b-form-select-option>
+          <b-form-select-option value="approved">approved</b-form-select-option>
+          <b-form-select-option value="rejected">rejected</b-form-select-option>
+        </b-form-select>
+        <button class="btn btn-secondary m-2" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+      </form>
     </div>
     <div class="m-2">
       <div
@@ -38,7 +44,7 @@
 
             <button
               class="btn btn-danger mb-2"
-              v-if="leave.status === 'pending'"
+              v-if="leave.status === 'pending'" type="submit"
             >
               <i class="fa-solid fa-trash"></i>
               Cancel
@@ -73,12 +79,13 @@ export default {
   data() {
     return {
       leaves: [],
+      status: "",
     };
   },
   methods: {
     async getAllLeaves() {
       const id = this.$store.state.auth.user;
-      const response = await getLeaves(id);
+      const response = await getLeaves(id, this.status);
       this.leaves = response.data.data;
       console.log(this.leaves);
       return response;
@@ -101,7 +108,7 @@ export default {
 
 .filtercontainer {
   width: 50%;
-  margin-left:5%
+  margin-left: 5%;
 }
 
 .font-weight-bolder {

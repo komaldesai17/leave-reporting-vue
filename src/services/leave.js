@@ -8,8 +8,15 @@ const addLeave = async (id, session) => {
     return response
 }
 
-const getLeaves = async (id) => {
-    const response = axios.get(`${config.baseUrl}/leave/${id}`)
+const getLeaves = async (id,status) => {
+    const response = axios.get(`${config.baseUrl}/leave/${id}?`,
+       
+        {
+            params: {
+                find:status
+            }
+        }
+    )
     return response
 
 }
