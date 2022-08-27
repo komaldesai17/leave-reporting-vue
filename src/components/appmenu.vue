@@ -5,7 +5,10 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-text
-            ><b-nav-item class="ml-7 p-1">
+            ><b-nav-item
+              class="ml-7 p-1"
+              v-if="this.$store.state.auth.role === 'general'"
+            >
               <router-link to="/Dashboard" class="text-decoration-none"
                 >Dashboard</router-link
               ></b-nav-item

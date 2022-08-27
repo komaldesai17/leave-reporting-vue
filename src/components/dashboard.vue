@@ -1,5 +1,7 @@
 <template>
-  <div class="border rounded-2 mt-5 container">
+  <div
+    class="border rounded-4 mt-5 container bg-black  bg-opacity-25"
+  >
     <div class="border-bottom row">
       <div class="col text-center position-relative m-lg-4">
         <h2 class="text-light">Total</h2>
