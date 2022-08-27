@@ -9,7 +9,7 @@
         <span class="font-weight-bolder">To : </span>{{ leave.endDate }}
       </div>
 
-      <div class="mb-2">
+      <div class="mb-2" v-if="this.$store.state.auth.role === 'admin'">
         <span class="font-weight-bolder">user : </span>{{ leave.user }}
       </div>
 
