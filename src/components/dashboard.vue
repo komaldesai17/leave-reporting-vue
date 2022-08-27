@@ -1,6 +1,11 @@
 <template>
   <div class="container mt-5 p-5">
     <div class="row row-cols-3">
+      <div class="col border"></div>
+      <div class="col-2 border">SICK</div>
+      <div class="col-2 border">ANNUAL</div>
+    </div>
+    <div class="row row-cols-3">
       <div class="col border">
         Total number of leaves
         {{ leaves.length }}
