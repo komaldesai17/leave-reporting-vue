@@ -20,20 +20,21 @@
 
       <form
         class="filtercontainer"
-        V-if=" this.$store.state.auth.role === 'admin'"
         @submit.prevent="getAllLeaves"
+        v-if="this.$store.state.auth.role === 'admin'"
       >
-        <h4>Filter by Users</h4>
+        <h4 class="text-end">Filter by Users</h4>
         <hr />
         <b-form-select
-          v-model="status"
+          v-model="email"
           class="btn btn-group btn-lg dropdown-toggle bg-body w-50"
         >
           <b-form-select-option value="" active>All</b-form-select-option>
           <b-form-select-option
-            :value="`${email}`"
+            :value="email"
             v-for="email in getemail.email"
             :key="email.id"
+            @submit.prevent="getAllLeaves"
             >{{ email }}</b-form-select-option
           >
         </b-form-select>
@@ -41,6 +42,16 @@
           <i class="fa-solid fa-magnifying-glass"></i> Search
         </button>
       </form>
+
+      <div
+        class="filtercontainer border rounded-2"
+        v-if="this.$store.state.auth.role === 'admin'"
+      >
+        <h4 class="text-end m-2">Current user:</h4>
+        <hr />
+        <span class="font-weight-bolder fs-4 m-4"> Email : </span>
+        {{ this.email }}
+      </div>
     </div>
     <div class="m-2">
       <div
@@ -76,10 +87,11 @@ export default {
     return {
       leaves: [],
       status: "",
+      email: "",
     };
   },
   computed: {
-    ...Vuex.mapGetters(["getemail"]),
+    ...Vuex.mapGetters(["getemail", "getuserID"]),
   },
   methods: {
     async getAllLeaves() {
@@ -91,6 +103,12 @@ export default {
       } else if (this.$store.state.auth.role === "admin") {
         const response = await getallLeaves(this.status);
         this.leaves = response.data.data;
+        if (this.email) {
+          const user = this.getuserID(this.email);
+          const response = await getLeaves(user[0]._id, this.status);
+          this.leaves = response.data.data;
+        }
+
         return response;
       }
     },
@@ -114,7 +132,7 @@ export default {
 .filtercontainer {
   width: 50%;
   margin-left: 5%;
-  margin-bottom: 5%;
+  margin-bottom: 25%;
 }
 
 @media (min-width: 600px) and (max-width: 1000px) {

@@ -12,7 +12,7 @@ const member = {
     getters: {
         getuserID(state) {
             return (mail) => {
-                return state.members.filter(m => m._id === mail);
+                return state.members.filter(m => m.email === mail);
 
             };
         },

@@ -1,13 +1,14 @@
 <template>
-  <div
-    class="border rounded-4 mt-5 container bg-black  bg-opacity-25"
-  >
+  <div class="border rounded-4 mt-5 container bg-black bg-opacity-25">
     <div class="border-bottom row">
       <div class="col text-center position-relative m-lg-4">
         <h2 class="text-light">Total</h2>
         <span class="fs-3"> {{ leaves.length }} </span>
 
-        <router-link class="btn position-absolute start-0 bottom-0 m-1" to="">
+        <router-link
+          class="btn position-absolute start-0 bottom-0 m-1"
+          to="/status"
+        >
           <i class="fa-solid fa-circle-chevron-right"></i>
         </router-link>
       </div>
@@ -133,88 +134,6 @@
       </div>
     </div>
   </div>
-  <!--
-  <div class="container mt-5 p-5">
-    <div class="row row-cols-3">
-      <div class="col border"></div>
-      <div class="col-2 border">SICK</div>
-      <div class="col-2 border">ANNUAL</div>
-    </div>
-    <b-card-group class="row row-cols-3">
-      <b-card
-        border-variant="light"
-        header="Total number of leaves"
-        class="col text-center p-0"
-      >
-        <b-card-text class="text-center"> {{ leaves.length }}</b-card-text>
-      </b-card>
-      <b-card-group class="row row-cols-2">
-        <b-card
-          border-variant="light"
-          header="Number of Sick leaves pending"
-          class="col text-center p-0"
-        >
-          <b-card-text class="text-center">
-            {{ countLeave(leaves, "sickp") }}</b-card-text
-          >
-        </b-card>
-
-        <b-card
-          border-variant="light"
-          header="Number of Annual leaves pending"
-          class="col text-center p-0"
-        >
-          <b-card-text class="text-center">{{
-            countLeave(leaves, "annualp")
-          }}</b-card-text>
-        </b-card>
-        <b-card class="col border text-center p-0 m-0">
-          <b-card-group class="row row-cols-2">
-            <b-card
-              border-variant="light"
-              header="approved"
-              class="col text-center p-0"
-            >
-              <b-card-text class="text-center">
-                {{ countLeave(leaves, "sicka") }}</b-card-text
-              >
-            </b-card>
-            <b-card
-              border-variant="light"
-              header="rejected"
-              class="col text-center p-0"
-            >
-              <b-card-text class="text-center">
-                {{ countLeave(leaves, "sickr") }}</b-card-text
-              >
-            </b-card>
-          </b-card-group>
-        </b-card>
-        <b-card class="col border">
-          <b-card-group class="row row-cols-2">
-            <b-card
-              border-variant="light"
-              header="approved"
-              class="col text-center p-0"
-            >
-              <b-card-text class="text-center">
-                {{ countLeave(leaves, "annuala") }}</b-card-text
-              >
-            </b-card>
-            <b-card
-              border-variant="light"
-              header="approved"
-              class="col text-center p-0"
-            >
-              <b-card-text class="text-center">
-                {{ countLeave(leaves, "annualr") }}</b-card-text
-              >
-            </b-card>
-          </b-card-group>
-        </b-card>
-      </b-card-group>
-    </b-card-group>
-  </div>-->
 </template>
 
 <script>
@@ -238,7 +157,6 @@ export default {
         return response;
       }
     },
- 
   },
   mixins: [countMixin],
 
