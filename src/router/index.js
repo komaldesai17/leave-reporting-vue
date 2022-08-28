@@ -3,8 +3,12 @@ import AppLogin from '@/components/login'
 import HolidayView from '@/components/holidayView'
 import LeaveDashboard from '@/components/dashboard'
 import LeaveStatus from '@/components/LeaveStatus'
-//import ApplyLeave from '@/components/applyLeave'
-import LeaveView from '@/components/leaveView'
+import ApplyLeave from '@/components/applyLeave'
+import store from '@/store';
+
+const meta = {
+    authorize:[]
+}
 
 const router = new Router({
     mode: 'history',
@@ -17,37 +21,39 @@ const router = new Router({
         {
             name: 'Holiday',
             path: '/holiday',
-            component: HolidayView
+            component: HolidayView,
+            meta
         },
         {
             name: 'Dashboard',
             path: '/dashboard',
-            component: LeaveDashboard
+            component: LeaveDashboard,
+            meta
         },
         {
             name: 'status',
             path: '/status',
-            component: LeaveStatus
+            component: LeaveStatus,
+            meta
         },
         {
             name: 'Leave',
             path: '/leave',
-            component: LeaveView,
-             /*{ children: [
-
-                {
-                    name: 'apply',
-                    path: 'apply',
-                    component: ApplyLeave
-                },
-              
-                    name: 'status',
-                    path: 'status',
-                    component:
-                }
-            ]*/
+            component: ApplyLeave,
+            meta
         }
     ]
+})
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.authorize && !store.getters.isAuthenticated) {
+        next({
+            name: 'Login'
+        });
+    }
+    else {
+        next();
+    }
 })
 
 export default router;

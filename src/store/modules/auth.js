@@ -7,64 +7,70 @@ const KEY_USER = 'user';
 
 const auth = {
     state: {
-        token: localStorage.getItem( KEY_TOKEN ) || '',
-        email: localStorage.getItem( KEY_EMAIL ) || '',
+        token: localStorage.getItem(KEY_TOKEN) || '',
+        email: localStorage.getItem(KEY_EMAIL) || '',
         role: localStorage.getItem(KEY_ROLE) || '',
         user: localStorage.getItem(KEY_USER) || '',
     },
     getters: {
-        isAuthenticated( state ) {
+        isAuthenticated(state) {
             return !!state.token;
         },
-        isAdmin( state ) {
+        isAdmin(state) {
             return state.role === 'admin';
         }
     },
     mutations: {
-        setToken( state, token ) {
+        setToken(state, token) {
             state.token = token;
         },
-        setEmail( state, email ) {
+        setEmail(state, email) {
             state.email = email;
         },
-        setRole( state, role ) {
+        setRole(state, role) {
             state.role = role;
         },
-        setUser( state, user ) {
+        setUser(state, user) {
             state.user = user;
         }
     },
     actions: {
         // credentials = { email: string, password: string }
         // login( context, credentials ) {
-        login( { commit }, credentials ) {
+        login({ commit }, credentials) {
             // console.log( context ); // { commit: fn, getters: fn, }
 
-            return login( credentials )
-                        .then( data => {
-                            const { token, email, role, user } = data.data
-        
-                            localStorage.setItem( KEY_TOKEN, token );
-                            localStorage.setItem( KEY_EMAIL, email );
-                            localStorage.setItem( KEY_ROLE, role );
-                            localStorage.setItem( KEY_USER, user );
-                            commit( 'setToken', token );
-                            commit( 'setEmail', email );
-                            commit('setRole', role);
-                            commit('setUser',user)
-                            console.log(data)
-        
-                          //  return email;
-                        });
+            return login(credentials)
+                .then(data => {
+                    const { data: { token, email, role, user } } = data
+                    localStorage.setItem(KEY_TOKEN, token);
+                    localStorage.setItem(KEY_EMAIL, email);
+                    localStorage.setItem(KEY_ROLE, role);
+                    localStorage.setItem(KEY_USER, user);
+                    commit('setToken', token);
+                    commit('setEmail', email);
+                    commit('setRole', role);
+                    commit('setUser', user)
+                    console.log(data)
+
+                    //dispatchAuthEvents();
+
+
+                    return email;
+                });
         },
-        logout( { commit } ) {
-            localStorage.removeItem( KEY_TOKEN );
-            localStorage.removeItem( KEY_EMAIL );
-            localStorage.removeItem( KEY_ROLE );
-        
-            commit( 'setToken', '' );
-            commit( 'setEmail', '' );
-            commit( 'setRole', '' );
+        logout({ commit }) {
+            localStorage.removeItem(KEY_TOKEN);
+            localStorage.removeItem(KEY_EMAIL);
+            localStorage.removeItem(KEY_ROLE);
+            localStorage.removeItem(KEY_USER);
+
+            commit('setToken', '');
+            commit('setEmail', '');
+            commit('setRole', '');
+            commit('setUser', '');
+
+
 
             return Promise.resolve();
         }

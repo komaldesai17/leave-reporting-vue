@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="addleave">
+    <h3>Apply for a leave</h3>
+    <hr />
     <div class="datewidth border border-white rounded m-sm-4 m-lg-3">
       <b-form class="m-5">
         <b-form-group
@@ -115,4 +117,7 @@ export default {
 </script>
 
 <style scoped>
+.addleave {
+  margin: 3%;
+}
 </style>

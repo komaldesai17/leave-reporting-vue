@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar class="bd-navbar">
+    <b-navbar class="bd-navbar" v-if="isAuthenticated">
       <b-navbar-brand class="ml-5 p-1">Leave Reporting</b-navbar-brand>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
@@ -36,7 +36,7 @@
             >
           </b-nav-text>
           <b-nav-text ml-auto>
-            <b-nav-item class="ml-7 p-1" href="#">Log out</b-nav-item>
+            <b-nav-item class="ml-7 p-1" @click="logout()">Log out</b-nav-item>
           </b-nav-text>
         </b-navbar-nav>
       </b-collapse>
@@ -47,6 +47,24 @@
 <script>
 export default {
   name: "AppMenu",
+  data() {
+    return {};
+  },
+  computed: {
+    email() {
+      return this.$store.state.auth.email;
+    },
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
+    },
+  },
+  methods: {
+    logout() {
+      this.$store
+        .dispatch("logout")
+        .then(() => this.$router.push({ name: "Login" }));
+    },
+  },
 };
 </script>
 
