@@ -17,6 +17,30 @@
           <i class="fa-solid fa-magnifying-glass"></i> Search
         </button>
       </form>
+
+      <form
+        class="filtercontainer"
+        V-if=" this.$store.state.auth.role === 'admin'"
+        @submit.prevent="getAllLeaves"
+      >
+        <h4>Filter by Users</h4>
+        <hr />
+        <b-form-select
+          v-model="status"
+          class="btn btn-group btn-lg dropdown-toggle bg-body w-50"
+        >
+          <b-form-select-option value="" active>All</b-form-select-option>
+          <b-form-select-option
+            :value="`${email}`"
+            v-for="email in getemail.email"
+            :key="email.id"
+            >{{ email }}</b-form-select-option
+          >
+        </b-form-select>
+        <button class="btn btn-secondary m-2" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+      </form>
     </div>
     <div class="m-2">
       <div
@@ -41,6 +65,8 @@
 <script>
 import { getLeaves, getallLeaves } from "../services/leave";
 import LeaveCard from "./LeaveCard.vue";
+import Vuex from "vuex";
+
 export default {
   name: "LeaveStatus",
   components: {
@@ -51,6 +77,9 @@ export default {
       leaves: [],
       status: "",
     };
+  },
+  computed: {
+    ...Vuex.mapGetters(["getemail"]),
   },
   methods: {
     async getAllLeaves() {
@@ -68,6 +97,7 @@ export default {
   },
   created() {
     this.getAllLeaves();
+    this.$store.dispatch("getUsers");
   },
 };
 </script>
@@ -84,6 +114,7 @@ export default {
 .filtercontainer {
   width: 50%;
   margin-left: 5%;
+  margin-bottom: 5%;
 }
 
 @media (min-width: 600px) and (max-width: 1000px) {
