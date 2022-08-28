@@ -39,7 +39,9 @@
           />
         </div>
         <div class="col-auto">
-          <button type="submit" class="btn btn-primary" name="login">Login</button>
+          <button type="submit" class="btn btn-primary" name="login">
+            Login
+          </button>
         </div>
       </div>
     </form>
@@ -47,44 +49,41 @@
 </template>
 
 <script>
-
 //import {login} from "@/services/users"
 
 export default {
   name: "AppLogin",
-  data(){
-    return{
-      form :{
-        email:"",
-        password:""
-      }
-    }
+  data() {
+    return {
+      form: {
+        email: "",
+        password: "",
+      },
+    };
   },
-  methods:{
-   login(){
-    this.$store.dispatch("login",this.form)
-    .then(()=>this.$router.push({ name: "Dashboard" }))
-    .catch(error =>{
-      console.log(error.message)
-    })
-
-   }
-
-    
-  }
+  methods: {
+    login() {
+      this.$store
+        .dispatch("login", this.form)
+        .then(() => this.$router.push({ name: "Dashboard" }))
+        .catch((error) => {
+          console.log(error.message);
+        });
+    },
+  },
 };
 </script>
 
 <style scoped>
 .container {
   box-sizing: border-box;
-  background-color:azure;
+  background-color: azure;
   border-radius: 10px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   overflow: hidden;
   top: 200px;
-  max-height: 600px;
+  max-height: 800px;
 }
 
 form {
