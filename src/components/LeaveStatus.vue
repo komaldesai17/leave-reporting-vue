@@ -132,7 +132,7 @@ export default {
 .filtercontainer {
   width: 50%;
   margin-left: 5%;
-  margin-bottom: 25%;
+  margin-bottom: 15%;
 }
 
 @media (min-width: 600px) and (max-width: 1000px) {
