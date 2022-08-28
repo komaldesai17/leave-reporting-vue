@@ -4,10 +4,12 @@ import HolidayView from '@/components/holidayView'
 import LeaveDashboard from '@/components/dashboard'
 import LeaveStatus from '@/components/LeaveStatus'
 import ApplyLeave from '@/components/applyLeave'
+import PageNotFound from '@/components/PageNotFound';
+
 import store from '@/store';
 
 const meta = {
-    authorize:[]
+    authorize: []
 }
 
 const router = new Router({
@@ -41,6 +43,11 @@ const router = new Router({
             path: '/leave',
             component: ApplyLeave,
             meta
+        },
+        {
+            name: 'page-not-found',
+            path: '*',
+            component: PageNotFound
         }
     ]
 })
