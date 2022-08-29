@@ -137,7 +137,7 @@
 </template>
 
 <script>
-import { getLeaves } from "../services/leave";
+import { getDashboard } from "../services/leave";
 import countMixin from "@/mixins/countLeaves";
 
 export default {
@@ -149,10 +149,10 @@ export default {
     };
   },
   methods: {
-    async getAllLeaves() {
+    async getDashboard() {
       if (this.$store.state.auth.role === "general") {
         const id = this.$store.state.auth.user;
-        const response = await getLeaves(id, this.status);
+        const response = await getDashboard(id);
         this.leaves = response.data;
         return response;
       }
@@ -161,7 +161,7 @@ export default {
   mixins: [countMixin],
 
   created() {
-    this.getAllLeaves();
+    this.getDashboard();
   },
 };
 </script>

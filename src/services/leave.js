@@ -22,6 +22,13 @@ const getLeaves = async (page, id, status) => {
 
 }
 
+const getDashboard = async (id) => {
+    const response = await axios.get(`${config.baseUrl}/dashbord/${id}`)
+    console.log(response.data)
+    return response.data
+
+}
+
 const changeStatus = async (id, status) => {
     const response = axios.patch(`${config.baseUrl}/leave/${id}?`,
 
@@ -65,5 +72,6 @@ export {
     getLeaves,
     cancelLeave,
     changeStatus,
-    getallLeaves
+    getallLeaves,
+    getDashboard
 }
