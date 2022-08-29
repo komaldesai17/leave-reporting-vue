@@ -5,6 +5,7 @@ import LeaveDashboard from '@/components/dashboard'
 import LeaveStatus from '@/components/LeaveStatus'
 import ApplyLeave from '@/components/applyLeave'
 import PageNotFound from '@/components/PageNotFound';
+import AppRegister from '@/components/registerPage'
 
 import store from '@/store';
 
@@ -19,6 +20,11 @@ const router = new Router({
             name: 'Login',
             path: '/',
             component: AppLogin
+        },
+        {
+            name: 'register',
+            path: '/register',
+            component: AppRegister,
         },
         {
             name: 'Holiday',

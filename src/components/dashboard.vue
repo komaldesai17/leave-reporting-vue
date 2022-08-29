@@ -153,7 +153,7 @@ export default {
       if (this.$store.state.auth.role === "general") {
         const id = this.$store.state.auth.user;
         const response = await getLeaves(id, this.status);
-        this.leaves = response.data.data;
+        this.leaves = response.data;
         return response;
       }
     },

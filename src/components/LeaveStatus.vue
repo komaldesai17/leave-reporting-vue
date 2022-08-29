@@ -57,17 +57,28 @@
       <div
         class="card border-light alert alert-danger m-3 p-3"
         style="max-width: 60rem"
-        v-if="leaves.length === 0"
+        v-if="leaves.length === 0 && this.page == 1"
       >
         No Leaves found currently
       </div>
-      <div
-        class="card border-light mb-3 bg-transparent"
-        style="max-width: 60rem"
-        v-for="leave in leaves"
-        :key="leave._id"
-      >
-        <LeaveCard :leave="leave" />
+      <div class="row-4">
+        <div class="mb-3" v-if="leaves.length !== 0">
+          <button class="btn me-2" @click="previous">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button class="btn me-2" @click="next" :disabled="leaves.length < 5">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <div
+          class="card border-light mb-3 bg-transparent"
+          style="max-width: 60rem"
+          v-for="leave in leaves"
+          :key="leave._id"
+        >
+          <LeaveCard :leave="leave" />
+        </div>
       </div>
     </div>
   </div>
@@ -88,6 +99,7 @@ export default {
       leaves: [],
       status: "",
       email: "",
+      page: 1,
     };
   },
   computed: {
@@ -97,20 +109,31 @@ export default {
     async getAllLeaves() {
       if (this.$store.state.auth.role === "general") {
         const id = this.$store.state.auth.user;
-        const response = await getLeaves(id, this.status);
-        this.leaves = response.data.data;
+        const response = await getLeaves(this.page, id, this.status);
+        this.leaves = response.data;
         return response;
       } else if (this.$store.state.auth.role === "admin") {
-        const response = await getallLeaves(this.status);
-        this.leaves = response.data.data;
+        const response = await getallLeaves(this.page, this.status);
+        this.leaves = response.data;
         if (this.email) {
           const user = this.getuserID(this.email);
-          const response = await getLeaves(user[0]._id, this.status);
-          this.leaves = response.data.data;
+          const response = await getLeaves(this.page, user[0]._id, this.status);
+          this.leaves = response.data;
         }
 
         return response;
       }
+    },
+    previous() {
+      if (this.page !== 1) {
+        this.page = this.page - 1;
+        this.getAllLeaves();
+      }
+    },
+    next() {
+      this.page = this.page + 1;
+
+      this.getAllLeaves();
     },
   },
   created() {

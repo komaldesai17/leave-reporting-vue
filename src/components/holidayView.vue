@@ -70,9 +70,12 @@ export default {
 
 .addholiday {
   width: 100%;
+  margin-left: 5%;
+  margin-bottom: 15%;
 }
 .removeholiday {
   width: 100%;
+  margin-left: 5%;
 }
 .calcontainer {
   width: 60%;
@@ -98,8 +101,8 @@ export default {
   .calcontainer {
     width: 97%;
     height: 0%;
-    margin-left:1.5%;
-    margin-right:1.5%;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
   }
 }
 </style>

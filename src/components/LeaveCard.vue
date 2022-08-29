@@ -3,10 +3,11 @@
     <div>
       <div class="mb-2">
         <span class="font-weight-bolder">From : </span>
-        {{ leave.startDate }}
+        {{ formatDate(leave.startDate) }}
       </div>
       <div class="mb-2">
-        <span class="font-weight-bolder">To : </span>{{ leave.endDate }}
+        <span class="font-weight-bolder">To : </span
+        >{{ formatDate(leave.endDate) }}
       </div>
 
       <div class="mb-2" v-if="this.$store.state.auth.role === 'admin'">
@@ -82,6 +83,7 @@
 
 <script>
 import { cancelLeave, changeStatus } from "../services/leave";
+import formatDateMixin from "../mixins/formatDate";
 
 export default {
   name: "LeaveCard",
@@ -94,6 +96,7 @@ export default {
       required: true,
     },
   },
+  mixins: [formatDateMixin],
   methods: {
     async CancelLeave(leave) {
       const response = await cancelLeave(leave);

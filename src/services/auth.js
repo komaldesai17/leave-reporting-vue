@@ -17,3 +17,16 @@ export const login = (credentials) => {
         .catch(errorHandler);
 };
 
+
+export const register = (creds) => {
+    const response = axios.post(`${config.baseUrl}/user/register`,
+        creds,
+        {
+
+            headers: {
+                'Content-Type': 'application/json'
+            }
+
+        })
+    return response;
+}

@@ -8,16 +8,17 @@ const addLeave = async (id, session) => {
     return response
 }
 
-const getLeaves = async (id, status) => {
-    const response = axios.get(`${config.baseUrl}/leave/${id}?`,
+const getLeaves = async (page, id, status) => {
+    const response = await axios.get(`${config.baseUrl}/leave/${id}?`,
 
         {
             params: {
-                find: status
+                find: status,
+                page
             }
         }
     )
-    return response
+    return response.data
 
 }
 
@@ -33,20 +34,29 @@ const changeStatus = async (id, status) => {
 }
 
 const cancelLeave = async (id) => {
-    const response = axios.delete(`${config.baseUrl}/leave/${id.toString()}`
+    const response = await axios.delete(`${config.baseUrl}/leave/${id.toString()}`
 
     )
     return response
 
 }
 
-const getallLeaves = async (status) => {
-    const response = axios.get(`${config.baseUrl}/leave/?`,{
+const getallLeaves = async (page, status) => {
+    const response = await axios.get(`${config.baseUrl}/leave?`, {
         params: {
-            find: status
+            find: status,
+            page
         }
     })
-    return response
+    console.log(page)
+    console.log(`${config.baseUrl}/leave?`, {
+        params: {
+            find: status,
+            page
+        }
+    })
+
+    return response.data
 
 }
 
