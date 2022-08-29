@@ -1,10 +1,10 @@
 <template>
-  <form class="border border-white rounded p-3">
+  <form class="border border-white rounded p-3" @submit.prevent="AddHoliday">
     <div class="form-group row">
       <label for="input1" class="col-sm-7 col-lg-3 col-form-label"
         >start date:</label
       >
-      <div class="col-lg-4">
+      <div class="col-lg-6">
         <input
           type="date"
           name="start_date"
@@ -18,7 +18,7 @@
       <label for="input2" class="col-sm-7 col-lg-3 col-form-label"
         >end date:</label
       >
-      <div class="col-lg-4">
+      <div class="col-lg-6">
         <input
           type="date"
           name="end_date"
@@ -32,7 +32,7 @@
       <label for="input3" class="col-sm-7 col-lg-3 col-md-3 col-form-label"
         >description:</label
       >
-      <div class="col-lg-4">
+      <div class="col-lg-6">
         <input
           type="text"
           name="description"
@@ -43,13 +43,7 @@
       </div>
       <div class="form-group row">
         <div class="col-sm-7 col-lg-3">
-          <button
-            type="submit"
-            class="btn btn-primary mt-1"
-            @click="AddHoliday"
-          >
-            Add
-          </button>
+          <button type="submit" class="btn btn-primary mt-1" @click='`${this.forceUpdate()}`'>Add</button>
         </div>
       </div>
     </div>
@@ -73,6 +67,7 @@ export default {
     async AddHoliday() {
       const response = await AddHoliday(this.form);
       console.log(response);
+    
     },
   },
 };

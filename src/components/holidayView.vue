@@ -37,7 +37,6 @@ export default {
     return {
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin],
-        //initialView: "dayGridMonth",
         events: [],
         eventDisplay: "block",
         eventColor: "green",
@@ -49,15 +48,16 @@ export default {
       role: this.$store.state.auth.role,
     };
   },
-  created() {
-    this.getEvents();
-  },
   methods: {
     async getEvents() {
       const response = await fetchHolidays();
-      this.calendarOptions.events = response.data.data;
-      console.log(this.calendarOptions.events);
+      response.data.forEach((element) => {
+        this.calendarOptions.events.push(element);
+      });
     },
+  },
+  created() {
+    this.getEvents();
   },
 };
 </script>

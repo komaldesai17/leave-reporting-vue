@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import VueCookies from 'vue-cookies'
 import store from '@/store'
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 
 
 import Router from 'vue-router'
@@ -20,7 +22,8 @@ import '../src/css/util.css'
 
 Vue.use(Router);
 Vue.use(BootstrapVue);
-Vue.use(VueCookies, { 
+Vue.use(VueToast)
+Vue.use(VueCookies, {
 })
 
 
