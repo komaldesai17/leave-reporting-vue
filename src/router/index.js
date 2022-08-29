@@ -6,6 +6,7 @@ import LeaveStatus from '@/components/LeaveStatus'
 import ApplyLeave from '@/components/applyLeave'
 import PageNotFound from '@/components/PageNotFound';
 import AppRegister from '@/components/registerPage'
+import AppHome from '@/components/home'
 
 import store from '@/store';
 
@@ -30,6 +31,12 @@ const router = new Router({
             name: 'Holiday',
             path: '/holiday',
             component: HolidayView,
+            meta
+        },
+        {
+            name: 'Home',
+            path: '/home',
+            component: AppHome,
             meta
         },
         {

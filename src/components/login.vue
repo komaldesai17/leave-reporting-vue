@@ -71,7 +71,13 @@ export default {
     login() {
       this.$store
         .dispatch("login", this.form)
-        .then(() => this.$router.push({ name: "Dashboard" }))
+        .then(() => {
+          if (this.$store.state.auth.role === "general") {
+            this.$router.push({ name: "Dashboard" });
+          } else if (this.$store.state.auth.role === "admin") {
+            this.$router.push({ name: "Home" });
+          }
+        })
         .catch((error) => {
           console.log(error.message);
         });
