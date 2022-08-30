@@ -128,7 +128,6 @@ export default {
       if (this.page !== 1) {
         this.page = this.page - 1;
         this.getAllLeaves();
-      
       }
     },
     next() {

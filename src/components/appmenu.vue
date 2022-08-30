@@ -25,17 +25,13 @@
               <router-link
                 to="/home"
                 class="text-decoration-none"
-                exact-active-class="active"
+                active-class="active"
                 >Home</router-link
               ></b-nav-item
             >
           </b-nav-text>
           <b-nav-text>
-            <b-nav-item-dropdown
-              class="ml-7 p-1"
-              text="Leaves"
-              active
-            >
+            <b-nav-item-dropdown class="ml-7 p-1" text="Leaves">
               <b-dropdown-item>
                 <router-link to="/status" class="text-decoration-none"
                   >Check status</router-link
@@ -53,7 +49,7 @@
               <router-link
                 to="/holiday"
                 class="text-decoration-none"
-                exact-active-class="active"
+                active-class="active"
                 >Holiday</router-link
               ></b-nav-item
             >

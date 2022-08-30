@@ -1,12 +1,12 @@
 import Router from 'vue-router';
-import AppLogin from '@/components/login'
-import HolidayView from '@/components/holidayView'
-import LeaveDashboard from '@/components/dashboard'
+import AppLogin from '@/components/Login'
+import HolidayView from '@/components/HolidayView'
+import LeaveDashboard from '@/components/DashboardPage'
 import LeaveStatus from '@/components/LeaveStatus'
-import ApplyLeave from '@/components/applyLeave'
+import ApplyLeave from '@/components/ApplyLeave'
 import PageNotFound from '@/components/PageNotFound';
-import AppRegister from '@/components/registerPage'
-import AppHome from '@/components/home'
+import AppRegister from '@/components/RegisterPage'
+import AppHome from '@/components/Home'
 
 import store from '@/store';
 
