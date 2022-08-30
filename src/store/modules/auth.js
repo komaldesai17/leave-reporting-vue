@@ -47,11 +47,11 @@ const auth = {
                     localStorage.setItem(KEY_EMAIL, email);
                     localStorage.setItem(KEY_ROLE, role);
                     localStorage.setItem(KEY_USER, user);
+                    
                     commit('setToken', token);
                     commit('setEmail', email);
                     commit('setRole', role);
                     commit('setUser', user)
-                    console.log(data)
 
                     //dispatchAuthEvents();
 
