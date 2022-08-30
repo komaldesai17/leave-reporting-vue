@@ -51,9 +51,10 @@ export default {
   methods: {
     async getEvents() {
       const response = await fetchHolidays();
-      response.data.forEach((element) => {
+      /*response.data.forEach((element) => {
         this.calendarOptions.events.push(element);
-      });
+      });*/
+      this.calendarOptions.events = response.data;
     },
   },
   created() {

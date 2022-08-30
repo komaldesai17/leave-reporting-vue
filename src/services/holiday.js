@@ -14,8 +14,8 @@ const removeHoliday = async (description) => {
 }
 
 const AddHoliday = async (session) => {
-    const response = axios.post(`${config.baseUrl}/holidays`, session)
-    return response
+    const response = await axios.post(`${config.baseUrl}/holidays`, session)
+    return response.data
 }
 
 

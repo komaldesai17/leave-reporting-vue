@@ -43,7 +43,7 @@
       </div>
       <div class="form-group row">
         <div class="col-sm-7 col-lg-3">
-          <button type="submit" class="btn btn-primary mt-1" @click='`${this.forceUpdate()}`'>Add</button>
+          <button type="submit" class="btn btn-primary mt-1">Add</button>
         </div>
       </div>
     </div>
@@ -52,6 +52,9 @@
 
 <script>
 import { AddHoliday } from "@/services/holiday";
+import Vue from "vue";
+import config from "@/config";
+
 export default {
   name: "AddHoliday",
   data() {
@@ -65,9 +68,21 @@ export default {
   },
   methods: {
     async AddHoliday() {
-      const response = await AddHoliday(this.form);
-      console.log(response);
-    
+      try {
+        const response = await AddHoliday(this.form);
+
+        if (response.status === "success") {
+          Vue.$toast.success("Added holiday : " + `${this.form.title}`, {
+            position: "top-right",
+            duration: config.toastDuration,
+          });
+        }
+      } catch (error) {
+        Vue.$toast.error("something went wrong", {
+          position: "top-right",
+          duration: config.toastDuration,
+        });
+      }
     },
   },
 };

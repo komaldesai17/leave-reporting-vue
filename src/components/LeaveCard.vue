@@ -84,7 +84,8 @@
 <script>
 import { cancelLeave, changeStatus } from "../services/leave";
 import formatDateMixin from "../mixins/formatDate";
-
+import Vue from "vue";
+import config from "@/config";
 export default {
   name: "LeaveCard",
   data() {
@@ -98,14 +99,43 @@ export default {
   },
   mixins: [formatDateMixin],
   methods: {
-    async CancelLeave(leave) {
-      const response = await cancelLeave(leave);
-      return response;
+    async CancelLeave(id) {
+      try {
+        const response = await cancelLeave(id);
+        if (response.status === "success") {
+          Vue.$toast.error("Cancelled", {
+            position: "top-right",
+            duration: config.toastDuration,
+          });
+        }
+      } catch (error) {
+        Vue.$toast.error("something went wrong", {
+          position: "top-right",
+          duration: config.toastDuration,
+        });
+      }
     },
-    async ChangeStatus(leave, status) {
-      const response = await changeStatus(leave, status.trim());
-      console.log(leave, status, response.data.data.status);
-      return response;
+    async ChangeStatus(id, status) {
+      try {
+        const response = await changeStatus(id, status.trim());
+        console.log(this.leave);
+        if (response.data.status === "approved") {
+          Vue.$toast.success("Leave approved ", {
+            position: "top-right",
+            duration: config.toastDuration,
+          });
+        } else if (response.data.status === "rejected") {
+          Vue.$toast.error("Leave rejected ", {
+            position: "top-right",
+            duration: config.toastDuration,
+          });
+        }
+      } catch (error) {
+        Vue.$toast.error("something went wrong", {
+          position: "top-right",
+          duration: config.toastDuration,
+        });
+      }
     },
   },
 };

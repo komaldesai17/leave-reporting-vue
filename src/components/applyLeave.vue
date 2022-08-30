@@ -3,7 +3,7 @@
     <h3>Apply for a leave</h3>
     <hr />
     <div class="datewidth border border-white rounded m-sm-4 m-lg-3">
-      <b-form class="m-5">
+      <b-form class="m-5" @submit.prevent="AddLeave">
         <b-form-group
           size="lg"
           label="Start date:"
@@ -72,8 +72,8 @@
         <b-button
           size="lg"
           variant="primary"
+          type="submit"
           class="mt-sm-4 mt-lg-1 m-lg-3"
-          @click="AddLeave"
           >Apply</b-button
         >
       </b-form>
@@ -83,6 +83,8 @@
 
 <script>
 import { addLeave } from "../services/leave";
+import Vue from "vue";
+import config from "@/config";
 
 export default {
   name: "ApplyLeave",
@@ -100,9 +102,22 @@ export default {
 
   methods: {
     async AddLeave() {
-      const id = this.$store.state.auth.user;
-      const response = await addLeave(id, this.form);
-      console.log(response);
+      try {
+        const id = this.$store.state.auth.user;
+        const response = await addLeave(id, this.form);
+        console.log(response);
+        if (response.status === "success") {
+          Vue.$toast.success("Leave Added ", {
+            position: "top-right",
+            duration: config.toastDuration,
+          });
+        }
+      } catch (error) {
+        Vue.$toast.error("something went wrong", {
+          position: "top-right",
+          duration: config.toastDuration,
+        });
+      }
     },
     dateDisabled(ymd, date) {
       // Disable weekends (Sunday = `0`, Saturday = `6`) and
