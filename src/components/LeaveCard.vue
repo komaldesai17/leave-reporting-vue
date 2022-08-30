@@ -56,19 +56,19 @@
           class="alert bg-dark text-white h-25 p-2 w-50"
           v-if="leave.status === 'pending'"
         >
-          <i class="fa-solid fa-clock-rotate-left ms-5"></i> {{ leave.status }}
+          <i class="fa-solid fa-clock-rotate-left ms-5"></i> <span class="d-none d-lg-inline">{{ leave.status }}</span>
         </div>
         <div
           class="alert bg-success h-50 p-2 w-50"
           v-if="leave.status === 'approved'"
         >
-          <i class="fa-solid fa-thumbs-up ms-5"></i> {{ leave.status }}
+          <i class="fa-solid fa-thumbs-up ms-5"></i><span class="d-none d-lg-inline"> {{ leave.status }}</span>
         </div>
         <div
           class="alert alert-danger h-50 p-2 w-50"
           v-if="leave.status === 'rejected'"
         >
-          <i class="fa-solid fa-thumbs-down ms-5"></i> {{ leave.status }}
+          <i class="fa-solid fa-thumbs-down ms-5"></i> <span class="d-none d-lg-inline">{{ leave.status }}</span>
         </div>
       </div>
       <div class="d-flex justify-content-end">
