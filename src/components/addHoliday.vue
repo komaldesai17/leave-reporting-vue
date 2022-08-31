@@ -122,7 +122,7 @@ export default {
       end: {
         required,
         minValue(val) {
-          return new Date(val) > new Date(this.form.start);
+          return new Date(val) >= new Date(this.form.start);
         },
       },
       title: { required },

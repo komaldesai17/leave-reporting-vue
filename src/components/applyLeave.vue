@@ -133,13 +133,13 @@ export default {
       startDate: {
         required,
         minValue(val) {
-          return new Date(val) > new Date();
+          return new Date(val) >= new Date();
         },
       },
       endDate: {
         required,
         minValue(val) {
-          return new Date(val) > new Date();
+          return new Date(val) >= new Date();
         },
       },
       reason: {
