@@ -76,7 +76,7 @@
           v-for="leave in leaves"
           :key="leave._id"
         >
-          <LeaveCard :leave="leave" />
+          <LeaveCard :leave="leave" :ok="ok" />
         </div>
       </div>
     </div>
@@ -139,6 +139,9 @@ export default {
 
         return response;
       }
+    },
+    ok() {
+      this.getAllLeaves();
     },
 
     previous() {

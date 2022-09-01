@@ -16,10 +16,10 @@
           id="input1"
           v-model="form.start"
           @blur="$v.form.start.$touch()"
-           :class="{
-                'is-invalid': shouldAppendErrorClass($v.form.start),
-                'is-valid': shouldAppendValidClass($v.form.start),
-              }"
+          :class="{
+            'is-invalid': shouldAppendErrorClass($v.form.start),
+            'is-valid': shouldAppendValidClass($v.form.start),
+          }"
         />
         <div
           class="text-danger"
@@ -41,10 +41,10 @@
           v-model="form.end"
           id="input2"
           @blur="$v.form.end.$touch()"
-           :class="{
-                'is-invalid': shouldAppendErrorClass($v.form.end),
-                'is-valid': shouldAppendValidClass($v.form.end),
-              }"
+          :class="{
+            'is-invalid': shouldAppendErrorClass($v.form.end),
+            'is-valid': shouldAppendValidClass($v.form.end),
+          }"
         />
         <div
           class="text-danger"
@@ -72,10 +72,10 @@
           v-model="form.title"
           id="input3"
           @blur="$v.form.title.$touch()"
-           :class="{
-                'is-invalid': shouldAppendErrorClass($v.form.title),
-                'is-valid': shouldAppendValidClass($v.form.title),
-              }"
+          :class="{
+            'is-invalid': shouldAppendErrorClass($v.form.title),
+            'is-valid': shouldAppendValidClass($v.form.title),
+          }"
         />
         <div
           class="text-danger"
@@ -107,6 +107,7 @@ import config from "@/config";
 
 export default {
   name: "AddHoliday",
+  props:['ok'],
   data() {
     return {
       form: {
@@ -133,12 +134,13 @@ export default {
       if (!this.$v.form.$invalid) {
         try {
           const response = await AddHoliday(this.form);
-            //this.props.addevent()
+          //this.props.addevent()
           if (response.status === "success") {
             Vue.$toast.success("Added holiday : " + `${this.form.title}`, {
               position: "top-right",
               duration: config.toastDuration,
             });
+            this.ok();
           }
         } catch (error) {
           Vue.$toast.error("something went wrong", {

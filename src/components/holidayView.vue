@@ -4,12 +4,12 @@
       <div class="addholiday" v-if="role === 'admin'">
         <h5 class="mt-3">Add Holiday</h5>
         <hr />
-        <AddHoliday />
+        <AddHoliday :ok="ok"/>
       </div>
       <div class="removeholiday" v-if="role === 'admin'">
         <h5 class="mt-3">Remove Holiday</h5>
         <hr />
-        <RemoveHoliday />
+        <RemoveHoliday :ok="ok"/>
       </div>
     </div>
     <div class="calcontainer">
@@ -56,6 +56,11 @@ export default {
       });*/
       this.calendarOptions.events = response.data;
     },
+
+    ok(){
+      this.getEvents()
+    }
+  
   },
   created() {
     this.getEvents();

@@ -14,6 +14,7 @@
             size="lg"
             id="startdate"
             v-model="form.startDate"
+            @blur="this.$v.form.$touch()"
             :state="validateState('startDate')"
             :date-format-options="{
               year: 'numeric',

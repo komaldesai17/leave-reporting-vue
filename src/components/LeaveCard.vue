@@ -103,12 +103,11 @@ export default {
       count: "",
     };
   },
-  props: {
-    leave: {
+  props: ["leave", "ok"],
+  /*leave: {
       type: Object,
       required: true,
-    },
-  },
+    },*/
   mixins: [formatDateMixin, countMixin],
   methods: {
     async CancelLeave(id) {
@@ -119,6 +118,7 @@ export default {
             position: "top-right",
             duration: config.toastDuration,
           });
+          this.ok();
         }
       } catch (error) {
         Vue.$toast.error("something went wrong", {
@@ -138,11 +138,6 @@ export default {
         this.count = countMixin.methods.countLeave(response.data, "sicka");
       }
     },
-
-    oncall() {
-      console.log(this.id, this.status);
-    },
-
     async ChangeStatus(id, status) {
       try {
         if (status == "approved") {
@@ -157,6 +152,7 @@ export default {
                     position: "top-right",
                     duration: config.toastDuration,
                   });
+                  this.ok();
                 }
               }
             });
@@ -179,21 +175,23 @@ export default {
                 position: "top-right",
                 duration: config.toastDuration,
               });
+              this.ok();
             }
           }
         } else if (status == "rejected") {
-          console.log("i am on rejected");
           const response = await changeStatus(id, status.trim());
-          if (response.data.status === "approved") {
+          /*if (response.data.status === "approved") {
             Vue.$toast.success("Leave approved ", {
               position: "top-right",
               duration: config.toastDuration,
             });
-          } else if (response.data.status === "rejected") {
+
+          } else*/ if (response.data.status === "rejected") {
             Vue.$toast.error("Leave rejected ", {
               position: "top-right",
               duration: config.toastDuration,
             });
+            this.ok();
           }
         }
       } catch (error) {

@@ -29,6 +29,7 @@ import config from "@/config";
 
 export default {
   name: "RemoveHoliday",
+  props: ["ok"],
   data() {
     return {
       description: "",
@@ -39,10 +40,11 @@ export default {
       try {
         const response = await removeHoliday(this.description);
         if (response.status == "success") {
-          Vue.$toast.success("Removed holiday : " + `${this.description}`, {
+          Vue.$toast.default("Removed holiday : " + `${this.description}`, {
             position: "top-right",
             duration: config.toastDuration,
           });
+          this.ok();
         }
       } catch (error) {
         Vue.$toast.error("No such holiday", {
