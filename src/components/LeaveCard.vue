@@ -56,19 +56,28 @@
           class="alert bg-dark text-white h-25 p-2 w-50"
           v-if="leave.status === 'pending'"
         >
-          <i class="fa-solid fa-clock-rotate-left ms-5"></i> <span class="d-none d-lg-inline">{{ leave.status }}</span>
+          <i class="fa-solid fa-clock-rotate-left ms-5"></i>
+          <span class="d-none d-lg-inline">{{ leave.status }}</span>
         </div>
         <div
           class="alert bg-success h-50 p-2 w-50"
           v-if="leave.status === 'approved'"
         >
-          <i class="fa-solid fa-thumbs-up ms-5"></i><span class="d-none d-lg-inline"> {{ leave.status }}</span>
+          <i class="fa-solid fa-thumbs-up ms-5"></i
+          ><span class="d-none d-lg-inline"> {{ leave.status }}</span>
         </div>
         <div
           class="alert alert-danger h-50 p-2 w-50"
           v-if="leave.status === 'rejected'"
         >
-          <i class="fa-solid fa-thumbs-down ms-5"></i> <span class="d-none d-lg-inline">{{ leave.status }}</span>
+          <i class="fa-solid fa-thumbs-down ms-5"></i>
+          <span class="d-none d-lg-inline">{{ leave.status }}</span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <span class="m-2 font-weight-bolder">Type : </span>
+        <div class="h-25 p-2 w-50">
+          {{ leave.type }}
         </div>
       </div>
       <div class="d-flex justify-content-end">
@@ -82,14 +91,17 @@
 </template>
 
 <script>
-import { cancelLeave, changeStatus } from "../services/leave";
+import { cancelLeave, changeStatus, getDashboard } from "../services/leave";
 import formatDateMixin from "../mixins/formatDate";
+import countMixin from "@/mixins/countLeaves";
 import Vue from "vue";
 import config from "@/config";
 export default {
   name: "LeaveCard",
   data() {
-    return {};
+    return {
+      count: "",
+    };
   },
   props: {
     leave: {
@@ -97,7 +109,7 @@ export default {
       required: true,
     },
   },
-  mixins: [formatDateMixin],
+  mixins: [formatDateMixin, countMixin],
   methods: {
     async CancelLeave(id) {
       try {
@@ -115,20 +127,57 @@ export default {
         });
       }
     },
+    async checkleaves(status) {
+      if (status === "approved" && this.leave.type === "Annual") {
+        const response = await getDashboard(this.leave.user);
+
+        this.count = countMixin.methods.countLeave(response.data, "annuala");
+      } else if (status === "approved" && this.leave.type === "Sick") {
+        const response = await getDashboard(this.leave.user);
+
+        this.count = countMixin.methods.countLeave(response.data, "sicka");
+      }
+    },
+
     async ChangeStatus(id, status) {
       try {
-        const response = await changeStatus(id, status.trim());
-        console.log(this.leave);
-        if (response.data.status === "approved") {
-          Vue.$toast.success("Leave approved ", {
-            position: "top-right",
-            duration: config.toastDuration,
-          });
-        } else if (response.data.status === "rejected") {
-          Vue.$toast.error("Leave rejected ", {
-            position: "top-right",
-            duration: config.toastDuration,
-          });
+        if (status == "approved") {
+          await this.checkleaves(status);
+          if (this.count > 5) {
+            if (confirm("are you sure") == true) {
+              console.log(this.count, "higher");
+              const response = await changeStatus(id, status.trim());
+              if (response.data.status === "approved") {
+                Vue.$toast.success("Leave approved ", {
+                  position: "top-right",
+                  duration: config.toastDuration,
+                });
+              }
+            }
+          } else if (this.count <= 5) {
+            console.log(this.count, "lower");
+            const response = await changeStatus(id, status.trim());
+            if (response.data.status === "approved") {
+              Vue.$toast.success("Leave approved ", {
+                position: "top-right",
+                duration: config.toastDuration,
+              });
+            }
+          }
+        } else if (status == "rejected") {
+          console.log("i am on rejected");
+          const response = await changeStatus(id, status.trim());
+          if (response.data.status === "approved") {
+            Vue.$toast.success("Leave approved ", {
+              position: "top-right",
+              duration: config.toastDuration,
+            });
+          } else if (response.data.status === "rejected") {
+            Vue.$toast.error("Leave rejected ", {
+              position: "top-right",
+              duration: config.toastDuration,
+            });
+          }
         }
       } catch (error) {
         Vue.$toast.error("something went wrong", {

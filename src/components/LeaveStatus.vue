@@ -17,7 +17,6 @@
           <i class="fa-solid fa-magnifying-glass"></i> Search
         </button>
       </form>
-
       <form
         class="filtercontainer"
         @submit.prevent="getAllLeaves"
@@ -49,7 +48,7 @@
       >
         <h4 class="text-end m-2">Current user:</h4>
         <hr />
-        <span class="font-weight-bolder fs-4 m-4"> Email : </span>
+        <span class="font-weight-bolder fs-4 m-4"> Email </span> :
         {{ this.email }}
       </div>
     </div>
@@ -57,20 +56,20 @@
       <div
         class="card border-light alert alert-danger m-3 p-3"
         style="max-width: 60rem"
-        v-if="leaves.length === 0 && this.page == 1"
+        v-if="leaves.length === 0 && this.page === 1"
       >
         No Leaves found currently
       </div>
       <div class="row-4">
-        <div class="mb-3" v-if="leaves.length !== 0">
+        <div class="mb-3" v-if="leaves.length != 0 && this.page >= 1">
           <button class="btn me-2" @click="previous">
             <i class="fa-solid fa-chevron-left"></i>
           </button>
+          {{ this.page }}
           <button class="btn me-2" @click="next" :disabled="leaves.length < 5">
             <i class="fa-solid fa-chevron-right"></i>
           </button>
         </div>
-
         <div
           class="card border-light mb-3 bg-transparent"
           style="max-width: 60rem"
@@ -88,6 +87,7 @@
 import { getLeaves, getallLeaves } from "../services/leave";
 import LeaveCard from "./LeaveCard.vue";
 import Vuex from "vuex";
+import countMixin from "@/mixins/countLeaves";
 
 export default {
   name: "LeaveStatus",
@@ -102,6 +102,7 @@ export default {
       page: 1,
     };
   },
+  mixins: [countMixin],
   computed: {
     ...Vuex.mapGetters(["getemail", "getuserID"]),
   },
@@ -110,20 +111,36 @@ export default {
       if (this.$store.state.auth.role === "general") {
         const id = this.$store.state.auth.user;
         const response = await getLeaves(this.page, id, this.status);
-        this.leaves = response.data;
+        if (response.data == 0) {
+          this.page = 1;
+          this.getAllLeaves();
+        } else {
+          this.leaves = response.data;
+        }
         return response;
       } else if (this.$store.state.auth.role === "admin") {
         const response = await getallLeaves(this.page, this.status);
-        this.leaves = response.data;
+        if (response.data == 0) {
+          this.page = 1;
+          this.getAllLeaves();
+        } else {
+          this.leaves = response.data;
+        }
         if (this.email) {
           const user = this.getuserID(this.email);
           const response = await getLeaves(this.page, user[0]._id, this.status);
-          this.leaves = response.data;
+          if (response.data == 0) {
+            this.page = 1;
+            this.getAllLeaves();
+          } else {
+            this.leaves = response.data;
+          }
         }
 
         return response;
       }
     },
+
     previous() {
       if (this.page !== 1) {
         this.page = this.page - 1;
@@ -132,7 +149,6 @@ export default {
     },
     next() {
       this.page = this.page + 1;
-
       this.getAllLeaves();
     },
   },

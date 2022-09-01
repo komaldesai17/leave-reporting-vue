@@ -40,9 +40,15 @@ export function countLeave(leave, type) {
     }
 }
 
+
+export function checkstatuscount(){
+    
+}
+
 const countMixin = {
     methods: {
-        countLeave
+        countLeave,
+        checkstatuscount
     }
 }
 

@@ -4,6 +4,11 @@ import router from './router'
 import store from '@/store'
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
+import 'awesome-notifications/dist/style.css'
+import 'awesome-notifications/dist/index.var'
+import 'awesome-notifications/dist/modern.var'
+
+
 import Vuelidate from 'vuelidate';
 
 

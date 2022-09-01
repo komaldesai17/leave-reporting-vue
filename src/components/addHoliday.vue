@@ -133,7 +133,7 @@ export default {
       if (!this.$v.form.$invalid) {
         try {
           const response = await AddHoliday(this.form);
-
+            //this.props.addevent()
           if (response.status === "success") {
             Vue.$toast.success("Added holiday : " + `${this.form.title}`, {
               position: "top-right",
