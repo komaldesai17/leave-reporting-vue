@@ -139,12 +139,29 @@ export default {
       }
     },
 
+    oncall() {
+      console.log(this.id, this.status);
+    },
+
     async ChangeStatus(id, status) {
       try {
         if (status == "approved") {
           await this.checkleaves(status);
+
           if (this.count > 5) {
-            if (confirm("are you sure") == true) {
+            this.$bvModal.msgBoxConfirm("Are you sure?").then(async (value) => {
+              if (value == true) {
+                const response = await changeStatus(id, status.trim());
+                if (response.data.status === "approved") {
+                  Vue.$toast.success("Leave approved ", {
+                    position: "top-right",
+                    duration: config.toastDuration,
+                  });
+                }
+              }
+            });
+
+            /*if (confirm("are you sure") == true) {
               console.log(this.count, "higher");
               const response = await changeStatus(id, status.trim());
               if (response.data.status === "approved") {
@@ -153,7 +170,7 @@ export default {
                   duration: config.toastDuration,
                 });
               }
-            }
+            }*/
           } else if (this.count <= 5) {
             console.log(this.count, "lower");
             const response = await changeStatus(id, status.trim());
