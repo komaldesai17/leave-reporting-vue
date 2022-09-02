@@ -17,7 +17,7 @@
           <i class="fa-solid fa-magnifying-glass"></i> Search
         </button>
       </form>
-      <form class="filtercontainer" @submit.prevent="getAllLeaves">
+      <form class="filtercontainer" @submit.prevent="getAllLeaves"  v-if="this.$store.state.auth.role === 'general'">
         <h4>Search by date</h4>
         <hr />
         <label for="input1" class="col-sm-7 col-lg-3 col-form-label"

@@ -1,14 +1,20 @@
 import axios from 'axios';
 import config from '@/config';
+import store from '@/store';
 
 const addLeave = async (id, session) => {
-    const response = await axios.post(`${config.baseUrl}/leave/${id.toString()}`, session
+    const response = await axios.post(`${config.baseUrl}/leave/${id.toString()}`, session,
+        {
+            headers: {
+                Authorization: `${store.state.auth.token}`
+            }
+        }
 
     )
     return response.data
 }
 
-const getLeaves = async (page, id, status,start,end) => {
+const getLeaves = async (page, id, status, start, end) => {
     const response = await axios.get(`${config.baseUrl}/leave/${id}?`,
 
         {
@@ -17,7 +23,8 @@ const getLeaves = async (page, id, status,start,end) => {
                 page,
                 start,
                 end
-            }
+            },
+        
         }
     )
     return response.data
@@ -25,7 +32,9 @@ const getLeaves = async (page, id, status,start,end) => {
 }
 
 const getDashboard = async (id) => {
-    const response = await axios.get(`${config.baseUrl}/dashbord/${id}`)
+    const response = await axios.get(`${config.baseUrl}/dashbord/${id}`,
+       
+    )
     return response.data
 
 }
@@ -35,6 +44,11 @@ const changeStatus = async (id, status) => {
 
         {
             status
+        },
+        {
+            headers: {
+                Authorization: `${store.state.auth.token}`
+            }
         }
     )
     return response.data
@@ -42,9 +56,12 @@ const changeStatus = async (id, status) => {
 }
 
 const cancelLeave = async (id) => {
-    const response = await axios.delete(`${config.baseUrl}/leave/${id.toString()}`
+    const response = await axios.delete(`${config.baseUrl}/leave/${id.toString()}`, {
+        headers: {
+            Authorization: `${store.state.auth.token}`
+        }
 
-    )
+    })
     return response.data
 
 }
@@ -54,7 +71,11 @@ const getallLeaves = async (page, status) => {
         params: {
             find: status,
             page
+        },
+        headers: {
+            Authorization: `${store.state.auth.token}`
         }
+    
     })
     return response.data
 
