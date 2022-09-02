@@ -273,7 +273,7 @@ export default {
 
 form {
   position: relative;
-  margin-top: 30px;
+  margin-top: 45px;
   margin-right: 20%;
   margin-left: 20%;
   margin-bottom: 30px;

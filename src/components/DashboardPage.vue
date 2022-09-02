@@ -4,7 +4,7 @@
       <div class="border-bottom row">
         <div class="col text-center position-relative m-lg-4">
           <h2 class="text-light">Total</h2>
-          <span class="fs-3"> {{ leaves.length }} </span>
+          <span class="fs-3"> {{ countLeave(leaves) }} </span>
 
           <router-link
             class="btn position-absolute start-0 bottom-0 m-1"

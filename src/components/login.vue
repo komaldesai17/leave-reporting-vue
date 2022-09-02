@@ -15,12 +15,13 @@
             v-model="form.email"
             class="form-control"
             aria-describedby="email"
-                  @blur="$v.form.email.$touch()"
+            @blur="$v.form.email.$touch()"
             :class="{
               'is-invalid': shouldAppendErrorClass($v.form.email),
               'is-valid': shouldAppendValidClass($v.form.email),
             }"
-          />     <div
+          />
+          <div
             class="text-danger"
             v-if="$v.form.email.$error && !$v.form.email.required"
           >
@@ -43,7 +44,7 @@
             id="password"
             class="form-control"
             aria-describedby="passwordHelp"
-             @blur="$v.form.password.$touch()"
+            @blur="$v.form.password.$touch()"
             :class="{
               'is-invalid': shouldAppendErrorClass($v.form.password),
               'is-valid': shouldAppendValidClass($v.form.password),
@@ -162,8 +163,8 @@ export default {
               this.$router.push({ name: "Home" });
             }
           })
-          .catch((error) => {
-            console.log(error.message);
+          .catch(() => {
+            Vue.$toast.error("please check the details");
           });
       } else {
         Vue.$toast.error("invalid input values");

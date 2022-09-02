@@ -1,23 +1,23 @@
 export function countLeave(leave, type) {
-    let pal = 0, psl = 0, asl = 0, aal = 0, ral = 0, rsl = 0;
+    let pal = 0, psl = 0, asl = 0, aal = 0, ral = 0, rsl = 0, total = 0;
     leave.forEach(element => {
         if ((element.status === 'pending') && (element.type === 'Annual')) {
-            pal++;
+            pal += element.days;
         }
         else if ((element.status === 'pending') && (element.type === 'Sick')) {
-            psl++;
+            psl += element.days;
         }
         else if ((element.status === 'approved') && (element.type === 'Sick')) {
-            asl++;
+            asl += element.days;
         } else if ((element.status === 'approved') && (element.type === 'Annual')) {
-            aal++;
+            aal += element.days;
         }
         else if ((element.status === 'rejected') && (element.type === 'Sick')) {
-            rsl++;
+            rsl += element.days;
         } else if ((element.status === 'rejected') && (element.type === 'Annual')) {
-            ral++;
+            ral += element.days;
         }
-
+        total += element.days
     });
 
     if (type === 'annualp') {
@@ -38,17 +38,17 @@ export function countLeave(leave, type) {
     else if (type === 'sickp') {
         return psl
     }
+
+    return total
+
 }
 
 
-export function checkstatuscount(){
-    
-}
+
 
 const countMixin = {
     methods: {
         countLeave,
-        checkstatuscount
     }
 }
 
