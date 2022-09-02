@@ -13,7 +13,10 @@
       <div class="mb-2" v-if="this.$store.state.auth.role === 'admin'">
         <span class="font-weight-bolder">user : </span>{{ leave.user }}
       </div>
-
+      
+      <div class="mb-2">
+        <span class="font-weight-bolder">No of days : </span>{{ leave.days }}
+      </div>
       <button
         class="btn btn-danger mb-2"
         v-if="
@@ -105,7 +108,7 @@ export default {
   },
   props: ["leave", "ok"],
   /*leave: {
-      type: Object,
+      type: Object
       required: true,
     },*/
   mixins: [formatDateMixin, countMixin],
@@ -143,7 +146,7 @@ export default {
         if (status == "approved") {
           await this.checkleaves(status);
 
-          if (this.count > 5) {
+          if (this.count > 15 && this.leave.type === "Annual") {
             this.$bvModal.msgBoxConfirm("Are you sure?").then(async (value) => {
               if (value == true) {
                 const response = await changeStatus(id, status.trim());
@@ -156,18 +159,20 @@ export default {
                 }
               }
             });
-
-            /*if (confirm("are you sure") == true) {
-              console.log(this.count, "higher");
-              const response = await changeStatus(id, status.trim());
-              if (response.data.status === "approved") {
-                Vue.$toast.success("Leave approved ", {
-                  position: "top-right",
-                  duration: config.toastDuration,
-                });
+          } else if (this.count > 5 && this.leave.type === "Sick") {
+            this.$bvModal.msgBoxConfirm("Are you sure?").then(async (value) => {
+              if (value) {
+                const response = await changeStatus(id, status.trim());
+                if (response.data.status === "approved") {
+                  Vue.$toast.success("Leave approved ", {
+                    position: "top-right",
+                    duration: config.toastDuration,
+                  });
+                  this.ok();
+                }
               }
-            }*/
-          } else if (this.count <= 5) {
+            });
+          } else if (this.count <= 15 && this.leave.type === "Annual") {
             console.log(this.count, "lower");
             const response = await changeStatus(id, status.trim());
             if (response.data.status === "approved") {
@@ -177,6 +182,17 @@ export default {
               });
               this.ok();
             }
+          }
+          else if (this.count <= 5 && this.leave.type === "Sick") {
+            console.log(this.count, "lower");
+            /*const response = await changeStatus(id, status.trim());
+            if (response.data.status === "approved") {
+              Vue.$toast.success("Leave approved ", {
+                position: "top-right",
+                duration: config.toastDuration,
+              });
+              this.ok();
+            }*/
           }
         } else if (status == "rejected") {
           const response = await changeStatus(id, status.trim());

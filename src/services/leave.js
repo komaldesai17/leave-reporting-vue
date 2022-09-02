@@ -8,13 +8,15 @@ const addLeave = async (id, session) => {
     return response.data
 }
 
-const getLeaves = async (page, id, status) => {
+const getLeaves = async (page, id, status,start,end) => {
     const response = await axios.get(`${config.baseUrl}/leave/${id}?`,
 
         {
             params: {
                 find: status,
-                page
+                page,
+                start,
+                end
             }
         }
     )

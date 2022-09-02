@@ -134,13 +134,16 @@ export default {
       startDate: {
         required,
         minValue(val) {
-          return new Date(val) >= new Date();
+          return new Date(val).getDate() >= new Date().getDate();
         },
       },
       endDate: {
         required,
         minValue(val) {
-          return new Date(val) >= new Date();
+          return (
+            new Date(val).getDate() >= new Date().getDate() &&
+            new Date(val) >= new Date(this.form.startDate)
+          );
         },
       },
       reason: {

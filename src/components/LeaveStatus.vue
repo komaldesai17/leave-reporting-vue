@@ -17,6 +17,39 @@
           <i class="fa-solid fa-magnifying-glass"></i> Search
         </button>
       </form>
+      <form class="filtercontainer" @submit.prevent="getAllLeaves">
+        <h4>Search by date</h4>
+        <hr />
+        <label for="input1" class="col-sm-7 col-lg-3 col-form-label"
+          >start date:</label
+        >
+        <div class="col-lg-6">
+          <input
+            type="date"
+            name="start_date"
+            class="form-control"
+            id="input1"
+            v-model="start"
+          />
+        </div>
+        <label for="input1" class="col-sm-7 col-lg-3 col-form-label"
+          >end date:</label
+        >
+        <div class="col-lg-6">
+          <input
+            type="date"
+            name="start_date"
+            class="form-control"
+            id="input1"
+            v-model="end"
+          />
+        </div>
+
+        <button class="btn btn-secondary mt-5" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+      </form>
+
       <form
         class="filtercontainer"
         @submit.prevent="getAllLeaves"
@@ -66,7 +99,7 @@
             <i class="fa-solid fa-chevron-left"></i>
           </button>
           {{ this.page }}
-          <button class="btn me-2" @click="next" :disabled="leaves.length < 5">
+          <button class="btn me-2" @click="next" :disabled="leaves.length < 4">
             <i class="fa-solid fa-chevron-right"></i>
           </button>
         </div>
@@ -100,6 +133,8 @@ export default {
       status: "",
       email: "",
       page: 1,
+      start: "",
+      end: "",
     };
   },
   mixins: [countMixin],
@@ -110,7 +145,7 @@ export default {
     async getAllLeaves() {
       if (this.$store.state.auth.role === "general") {
         const id = this.$store.state.auth.user;
-        const response = await getLeaves(this.page, id, this.status);
+        const response = await getLeaves(this.page, id, this.status,this.start,this.end);
         if (response.data == 0) {
           this.page = 1;
           this.getAllLeaves();
@@ -119,7 +154,7 @@ export default {
         }
         return response;
       } else if (this.$store.state.auth.role === "admin") {
-        const response = await getallLeaves(this.page, this.status);
+        const response = await getallLeaves(this.page, this.status,this.start,this.end);
         if (response.data == 0) {
           this.page = 1;
           this.getAllLeaves();
@@ -186,6 +221,13 @@ export default {
   .filtercontainer {
     width: 95%;
     margin: 2%;
+  }
+
+  .calcontainer {
+    width: 97%;
+    height: 0%;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
   }
 }
 </style>

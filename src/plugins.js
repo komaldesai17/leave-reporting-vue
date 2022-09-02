@@ -21,5 +21,5 @@ import '../src/css/util.css'
 
 Vue.use(Router);
 Vue.use(BootstrapVue);
-Vue.use(VueToast)
+Vue.use(VueToast,{position: 'top-right',duration:3000})
 Vue.use( Vuelidate );
