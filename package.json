@@ -5,6 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "rimraf":"rimraf ../leave-reporting-server/public",
+    "copyfiles":"copyfiles -u 1 ./dist/**/* ../leave-reporting-server/public",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -16,8 +18,10 @@
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "bootstrap-vue": "^2.22.0",
+    "copyfiles": "^2.4.1",
     "core-js": "^3.8.3",
     "date-fns": "^2.29.2",
+    "rimraf": "^3.0.2",
     "vue": "^2.6.14",
     "vue-axios": "^3.4.1",
     "vue-cookies": "^1.8.1",

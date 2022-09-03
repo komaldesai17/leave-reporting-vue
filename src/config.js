@@ -1,6 +1,7 @@
+
 const config = {
     toastDuration: 3000,
-    baseUrl: `http://localhost:8080/api`,
+    baseUrl: process.env.VUE_APP_BASE_URL,
 }
 
 export default config;
