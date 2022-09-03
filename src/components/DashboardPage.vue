@@ -79,7 +79,7 @@
           "
         >
           <span class="fs-3 position-absolute bottom-50"
-            >{{ countLeave(leaves, "annuala") }}
+            >{{ countLeave(leaves, "sicka") }}
           </span>
         </div>
         <div
@@ -94,7 +94,7 @@
           "
         >
           <span class="fs-3 position-absolute bottom-50"
-            >{{ countLeave(leaves, "sicka") }}
+            >{{ countLeave(leaves, "annuala") }}
           </span>
         </div>
       </div>
@@ -115,7 +115,7 @@
           "
         >
           <span class="fs-3 position-absolute bottom-50">{{
-            countLeave(leaves, "annualr")
+            countLeave(leaves, "sickr")
           }}</span>
         </div>
         <div
@@ -130,7 +130,7 @@
           "
         >
           <span class="fs-3 position-absolute bottom-50">{{
-            countLeave(leaves, "sickr")
+            countLeave(leaves, "annualr")
           }}</span>
         </div>
       </div>
