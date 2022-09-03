@@ -174,7 +174,6 @@ export default {
         try {
           const id = this.$store.state.auth.user;
           const response = await addLeave(id, this.form);
-          console.log(response);
           if (response.status === "success") {
             Vue.$toast.success("Leave Added ", {
               position: "top-right",

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-
+import VueCookies from 'vue-cookies';
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 
@@ -21,5 +21,6 @@ import '../src/css/util.css'
 
 Vue.use(Router);
 Vue.use(BootstrapVue);
-Vue.use(VueToast,{position: 'top-right',duration:3000})
-Vue.use( Vuelidate );
+Vue.use(VueToast, { position: 'top-right', duration: 3000 })
+Vue.use(Vuelidate);
+Vue.use(VueCookies)
