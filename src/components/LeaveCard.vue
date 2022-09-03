@@ -173,7 +173,6 @@ export default {
               }
             });
           } else if (this.count <= 15 && this.leave.type === "Annual") {
-            console.log(this.count, "lower");
             const response = await changeStatus(id, status.trim());
             if (response.data.status === "approved") {
               Vue.$toast.success("Leave approved ", {
@@ -184,25 +183,18 @@ export default {
             }
           }
           else if (this.count <= 5 && this.leave.type === "Sick") {
-            console.log(this.count, "lower");
-            /*const response = await changeStatus(id, status.trim());
+            const response = await changeStatus(id, status.trim());
             if (response.data.status === "approved") {
               Vue.$toast.success("Leave approved ", {
                 position: "top-right",
                 duration: config.toastDuration,
               });
               this.ok();
-            }*/
+            }
           }
         } else if (status == "rejected") {
           const response = await changeStatus(id, status.trim());
-          /*if (response.data.status === "approved") {
-            Vue.$toast.success("Leave approved ", {
-              position: "top-right",
-              duration: config.toastDuration,
-            });
-
-          } else*/ if (response.data.status === "rejected") {
+         if (response.data.status === "rejected") {
             Vue.$toast.error("Leave rejected ", {
               position: "top-right",
               duration: config.toastDuration,
