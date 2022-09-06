@@ -11,7 +11,8 @@ import AppHome from '@/components/Home'
 import store from '@/store';
 
 const meta = {
-    authorize: []
+    authorize:[ 'admin', 'general' ]
+
 }
 
 const router = new Router({
@@ -66,6 +67,11 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+    if( store.getters.isAuthenticated && to.name === 'Login' ) {
+        return next({
+            name: 'Dashboard'
+        });
+    }
     if (to.meta.authorize && !store.getters.isAuthenticated) {
         next({
             name: 'Login'
