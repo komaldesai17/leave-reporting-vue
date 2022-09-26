@@ -235,7 +235,7 @@ export default {
           const response = await register(session);
           if (response.status === 201) {
             Vue.$toast.success("user registered successfully");
-            this.$router.push({ name: "login" });
+            this.$router.push({ name: "Login" });
           }
         } catch (error) {
           Vue.$toast.error("User already exists", {
