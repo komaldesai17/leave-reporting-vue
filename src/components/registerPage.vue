@@ -233,7 +233,7 @@ export default {
 
         try {
           const response = await register(session);
-          if (response.status == 204) {
+          if (response.status === 204) {
             Vue.$toast.success("user registered successfully");
             this.$router.push({ name: "login" });
           }
